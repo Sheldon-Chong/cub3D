@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 16:16:35 by jakoh             #+#    #+#             */
-/*   Updated: 2023/09/18 13:02:41 by jakoh            ###   ########.fr       */
+/*   Updated: 2023/09/18 16:10:29 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	move_player(int keycode, t_vars *vars)
 		vars->map.pX += 1;
 	mlx_put_image_to_window(vars->mlx, vars->window,
 		vars->texture.north, vars->map.pX * 32, vars->map.pY * 32);
-	printf("px,py: %i, %i\n", vars->map.pX,  vars->map.pY);
 }
 
 // 126 = UP, 123 = LEFT, 125 = DOWN, 124 = RIGHT

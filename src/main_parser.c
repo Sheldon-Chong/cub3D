@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 13:19:54 by jakoh             #+#    #+#             */
-/*   Updated: 2023/09/18 13:04:00 by jakoh            ###   ########.fr       */
+/*   Updated: 2023/09/18 15:53:00 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 /**
  * @brief Checks for valid character \n
- * 		  check if found map & check if map has ended \n
- * 		  check if map found before all texture \n
- * 		  char *slp = save line space;
+ * 			check if found map & check if map has ended \n
+ * 			check if map found before all texture \n
+ * 			char *slp = save line space;
  * 
  * @param first_char first character of line read
  * @param found_map tracks map, 0 = no, 1 = yes, 2 = map ended
@@ -95,7 +95,8 @@ int	parse_file(t_vars *vars, char *filename)
 		free(line);
 		line = get_next_line(fd);
 	}
-	build_map(vars, &list_map);
+	if (build_map(vars, &list_map) == 1)
+		exit_with_message("Error: Parsing Error.\n", 2);
 	free_list_map(&list_map);
 	close(fd);
 	return (0);

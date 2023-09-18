@@ -6,7 +6,7 @@
 /*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 13:26:16 by jakoh             #+#    #+#             */
-/*   Updated: 2023/09/14 10:05:34 by jakoh            ###   ########.fr       */
+/*   Updated: 2023/09/18 15:51:21 by jakoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,11 @@ void	check_walls(t_map *map)
 	flood_inside_map(map, &invalid);
 }
 
-
 void	check_valid_characters(t_map *map)
 {
-	int		player;
-	int		i;
-	int		j;
+	int	player;
+	int	i;
+	int	j;
 
 	i = -1;
 	player = 0;
@@ -44,10 +43,11 @@ void	check_valid_characters(t_map *map)
 				player++;
 				map->pX = j;
 				map->pY = i;
-				map->facing_pos = map->map[i][j];
+				map->pos = map->map[i][j];
 			}
 		}
 	}
+	map->pos = map->map[map->pY][map->pX];
 	if (player == 0 || player > 1)
 		exit_with_message("Invalid Number of Players.\n", 8);
 }

@@ -6,6 +6,7 @@ OBJS_DIR	:= ./obj
 SRCS		:=	main.c  inits.c exits.c free.c \
 				main_parser.c parse_textures.c parse_textures_utils.c\
 				parse_map.c parse_map_utils.c check_map.c \
+				draw.c draw_utils.c raycast.c\
 				hooks.c \
 				
 OBJS		:= $(SRCS:%.c=$(OBJS_DIR)/%.o)
@@ -19,8 +20,7 @@ MFLAGS 		:= -framework OpenGL -framework AppKit
 # -l(ft) to link library file. l replaces lib
 # -I is to look for header file in folder
 LIB_FT		:= -L libft -lft
-LIB_MLX		:= -L mlx -lmlx -framework OpenGL -framework AppKit
-
+LIB_MLX		:= -L mlx -lmlx $(MFLAGS)
 LIBRARY		:= $(LIB_FT) $(LIB_MLX)
 INCLUDES	:= -I mlx -I libft -I includes
 
