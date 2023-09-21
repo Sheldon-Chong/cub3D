@@ -3,21 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/05 15:55:36 by jakoh             #+#    #+#             */
-/*   Updated: 2022/04/05 15:58:50 by jakoh            ###   ########.fr       */
+/*   Created: 2022/10/03 14:40:15 by nwai-kea          #+#    #+#             */
+/*   Updated: 2022/10/05 15:29:37 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// Check if c is a printable ASCII character
 int	ft_isprint(int c)
 {
-	if (c >= ' ' && c <= '~')
-	{
+	if (c >= 32 && c <= 126)
 		return (1);
-	}
 	return (0);
 }

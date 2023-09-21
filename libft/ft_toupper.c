@@ -3,21 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/05 16:02:01 by jakoh             #+#    #+#             */
-/*   Updated: 2022/04/05 16:06:08 by jakoh            ###   ########.fr       */
+/*   Created: 2022/10/04 12:05:30 by nwai-kea          #+#    #+#             */
+/*   Updated: 2022/10/05 15:30:00 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// Converts lower case to uppercase
 int	ft_toupper(int c)
 {
-	if (c >= 'a' && c <= 'z')
-	{
+	if (c >= 97 && c <= 122)
 		return (c - 32);
-	}
 	return (c);
 }

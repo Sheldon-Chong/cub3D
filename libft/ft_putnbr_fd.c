@@ -3,35 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/11 09:10:34 by jakoh             #+#    #+#             */
-/*   Updated: 2022/04/11 09:10:46 by jakoh            ###   ########.fr       */
+/*   Created: 2022/10/07 17:47:50 by nwai-kea          #+#    #+#             */
+/*   Updated: 2022/10/13 15:19:37 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// Convert integer to ascii number
-// and write it to specific file descriptor
 void	ft_putnbr_fd(int n, int fd)
 {
-	char	s;
-
 	if (n == -2147483648)
-	{
-		write(fd, "-2147483648", 11);
-		return ;
-	}
+		return (ft_putstr_fd("-2147483648", fd));
 	if (n < 0)
 	{
-		write (fd, "-", 1);
-		n *= -1;
+		n = -n;
+		ft_putchar_fd('-', fd);
 	}
-	s = '0' + (n % 10);
-	if (n >= 10)
+	if (n > 9)
 	{
-		ft_putnbr_fd(n / 10, fd);
+		ft_putnbr_fd((n / 10), fd);
+		ft_putchar_fd((n % 10 + 48), fd);
 	}
-	write(fd, &s, 1);
+	else
+		ft_putchar_fd(n + 48, fd);
 }

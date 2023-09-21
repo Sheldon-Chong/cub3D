@@ -3,17 +3,14 @@ NAME		:= cub3d
 SRCS_DIR	:= ./src
 OBJS_DIR	:= ./obj
 
-SRCS		:=	main.c  inits.c exits.c free.c \
-				main_parser.c parse_textures.c parse_textures_utils.c\
-				parse_map.c parse_map_utils.c check_map.c \
-				draw.c draw_utils.c raycast.c\
-				hooks.c \
+SRCS		:=	main.c parse.c check.c error.c \
+				utils.c free.c map.c \
 				
 OBJS		:= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
 CC			:= gcc -Wall -Werror -Wextra 
 
-FLAGS		:= # -fsanitize=address
+FLAGS		:= -fsanitize=address
 MFLAGS 		:= -framework OpenGL -framework AppKit
 
 # -L "folder" to looks for library in the folder
@@ -23,6 +20,8 @@ LIB_FT		:= -L libft -lft
 LIB_MLX		:= -L mlx -lmlx $(MFLAGS)
 LIBRARY		:= $(LIB_FT) $(LIB_MLX)
 INCLUDES	:= -I mlx -I libft -I includes
+
+GETNEXTLINE = get_next_line/*.c
 
 RED		:= \033[0;31m
 GREEN	:= \033[0;32m
@@ -44,7 +43,7 @@ all	: $(NAME)
 $(NAME)	: $(OBJS)
 	@echo "$(GREEN)Compiling Libft...$(NC)"
 	@make -C ./libft
-	$(CC) $(FLAGS) $(OBJS) $(LIBRARY) $(INCLUDES) -o $@
+	$(CC) $(FLAGS) $(OBJS) $(LIBRARY) $(GETNEXTLINE) $(INCLUDES) -o $@
 	@echo "$(GREEN)Cub3D Compiled Successful.$(NC)"
 
 # "mkdir -p" creates dir if necessary, if dir exist, no error specified

@@ -3,25 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/11 09:43:42 by jakoh             #+#    #+#             */
-/*   Updated: 2022/04/11 09:43:50 by jakoh            ###   ########.fr       */
+/*   Created: 2022/10/09 11:46:16 by nwai-kea          #+#    #+#             */
+/*   Updated: 2022/10/13 15:28:55 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// Get last node of linked list
 t_list	*ft_lstlast(t_list *lst)
 {
-	t_list	*temp;
-
-	temp = NULL;
-	while (lst != NULL)
-	{
-		temp = lst;
+	if (!lst)
+		return (0);
+	while (lst->next)
 		lst = lst->next;
-	}
-	return (temp);
+	return (lst);
 }

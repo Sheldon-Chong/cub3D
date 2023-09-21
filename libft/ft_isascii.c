@@ -3,21 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/05 15:43:04 by jakoh             #+#    #+#             */
-/*   Updated: 2022/04/05 15:54:39 by jakoh            ###   ########.fr       */
+/*   Created: 2022/10/03 12:50:11 by nwai-kea          #+#    #+#             */
+/*   Updated: 2022/10/05 15:23:25 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// Check if c is within the ASCII range.
 int	ft_isascii(int c)
 {
-	if (c >= 0 && c <= 127)
-	{
+	if (c >= 0 && c < 128)
 		return (1);
-	}
 	return (0);
 }

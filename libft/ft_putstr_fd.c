@@ -3,24 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/11 09:02:10 by jakoh             #+#    #+#             */
-/*   Updated: 2022/04/11 09:02:38 by jakoh            ###   ########.fr       */
+/*   Created: 2022/10/07 17:33:39 by nwai-kea          #+#    #+#             */
+/*   Updated: 2022/10/15 13:38:20 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// Write string to specific file descriptor
 void	ft_putstr_fd(char *s, int fd)
 {
-	if (s)
+	if (!s)
+		return ;
+	while (*s)
 	{
-		while (*s)
-		{
-			write(fd, s, 1);
-			s++;
-		}
+		ft_putchar_fd(*s, fd);
+		s++;
 	}
 }

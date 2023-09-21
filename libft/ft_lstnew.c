@@ -3,24 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/11 09:19:17 by jakoh             #+#    #+#             */
-/*   Updated: 2022/04/11 09:19:45 by jakoh            ###   ########.fr       */
+/*   Created: 2022/10/09 11:28:06 by nwai-kea          #+#    #+#             */
+/*   Updated: 2022/10/09 11:31:06 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// Create a new node with content
 t_list	*ft_lstnew(void *content)
 {
-	t_list	*node;
+	t_list	*result;
 
-	node = malloc(sizeof(t_list));
-	if (!node)
-		return (NULL);
-	node->content = content;
-	node->next = NULL;
-	return (node);
+	result = malloc(sizeof(t_list));
+	if (!result)
+		return (0);
+	result->content = content;
+	result->next = NULL;
+	return (result);
 }

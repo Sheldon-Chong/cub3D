@@ -3,31 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/07 09:44:47 by jakoh             #+#    #+#             */
-/*   Updated: 2022/04/07 09:44:49 by jakoh            ###   ########.fr       */
+/*   Created: 2022/10/04 17:28:10 by nwai-kea          #+#    #+#             */
+/*   Updated: 2022/10/05 15:45:14 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// Implementation of memchar
-// man memchar for more info
 void	*ft_memchr(const void *s, int c, size_t n)
 {
-	size_t			i;
-	unsigned char	*temp;
+	const unsigned char	*ptr;
 
-	temp = (unsigned char *)s;
-	i = 0;
-	while (i < n)
+	ptr = (const unsigned char *)s;
+	while (n-- > 0)
 	{
-		if (temp[i] == (unsigned char)c)
-		{
-			return (temp + i);
-		}
-		i++;
+		if (*ptr == (unsigned char)c)
+			return ((void *)ptr);
+		ptr++;
 	}
 	return (0);
 }

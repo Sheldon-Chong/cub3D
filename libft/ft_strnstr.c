@@ -3,42 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 09:25:02 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/25 14:33:47 by jakoh            ###   ########.fr       */
+/*   Created: 2022/10/04 18:17:53 by nwai-kea          #+#    #+#             */
+/*   Updated: 2022/10/15 13:11:41 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/**
- * @brief Locates first occurance of string 'needle in 'haystack' \
- * @brief more than 'len' character and returns a pointer to first character
- * 
- * @param haystack place to search for needle
- * @param needle thing to look for
- * @param len length of search
- * @return type: char *, first occurance of  needle in haystack
- */
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	size_t	i;
-	size_t	j;
+	size_t	nlen;
 
-	i = 0;
-	if (*needle == 0)
+	if (*needle == '\0')
 		return ((char *)haystack);
-	while (i < len && haystack[i] != 0)
+	if (!haystack && (len == 0))
+		return (0);
+	nlen = ft_strlen(needle);
+	while (*haystack && len >= nlen)
 	{
-		j = 0;
-		while (haystack[i + j] == needle[j] && (i + j) < len)
-		{
-			if (needle[j + 1] == 0)
-				return ((char *)(haystack + i));
-			j++;
-		}
-		i++;
+		if (*haystack == *needle && ft_strncmp(haystack, needle, nlen) == 0)
+			return ((char *)haystack);
+		haystack++;
+		len--;
 	}
 	return (0);
 }

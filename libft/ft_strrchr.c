@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrchar.c                                      :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 09:09:16 by jakoh             #+#    #+#             */
-/*   Updated: 2022/04/06 09:09:20 by jakoh            ###   ########.fr       */
+/*   Created: 2022/10/04 15:11:06 by nwai-kea          #+#    #+#             */
+/*   Updated: 2022/10/13 12:57:54 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// Implementation of strrchr
-// man strrchr for more info
-// Locate last occurange of character c in string s
 char	*ft_strrchr(const char *s, int c)
 {
-	int	i;
+	size_t	len;
 
-	i = ft_strlen(s);
-	while (i != -1)
-	{
-		if (s[i] == (char)c)
-			return ((char *)(s + i));
-		i--;
-	}
+	len = ft_strlen(s);
+	while (len != 0 && (s[len] != c))
+		len--;
+	if (s[len] == (char)c)
+		return ((char *)(&s[len]));
 	return (0);
 }

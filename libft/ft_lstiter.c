@@ -3,20 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/11 10:11:20 by jakoh             #+#    #+#             */
-/*   Updated: 2022/04/11 10:11:30 by jakoh            ###   ########.fr       */
+/*   Created: 2022/10/09 11:59:31 by nwai-kea          #+#    #+#             */
+/*   Updated: 2022/10/09 12:01:23 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// Iterate through the linked list
-// while applying function f to each node
 void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	while (lst != NULL)
+	while (lst)
 	{
 		f(lst->content);
 		lst = lst->next;

@@ -3,31 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 12:29:58 by jakoh             #+#    #+#             */
-/*   Updated: 2022/10/28 16:27:07 by jakoh            ###   ########.fr       */
+/*   Created: 2022/10/04 19:20:18 by nwai-kea          #+#    #+#             */
+/*   Updated: 2022/10/14 17:29:42 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// Implementation of atoi (ASCII to Integer)
+static int	check_space(char c)
+{
+	if ((c >= 9 && c <= 13) || c == 32)
+		return (1);
+	return (0);
+}
+
 int	ft_atoi(const char *str)
 {
-	int	i;
-	int	ans;
-	int	neg;
+	int	result;
+	int	sign;
 
-	neg = 1;
-	ans = 0;
-	i = 0;
-	while ((str[i] >= '\t' && str[i] <= '\r') || str[i] == ' ')
-		++i;
-	if (str[i] == '+' || str[i] == '-')
-		if (str[i++] == '-')
-			neg = -1;
-	while (str[i] >= '0' && str[i] <= '9')
-		ans = (ans * 10) + (str[i++] - '0');
-	return (ans * neg);
+	result = 0;
+	sign = 1;
+	while (check_space(*str))
+		str++;
+	if (*str == '+' || *str == '-')
+	{
+		if (*str == '-')
+			sign *= -sign;
+		str++ ;
+	}
+	while (ft_isdigit(*str))
+		result = result * 10 + (*str++ - '0');
+	return (result * sign);
 }

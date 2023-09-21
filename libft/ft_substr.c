@@ -3,49 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/07 13:43:47 by jakoh             #+#    #+#             */
-/*   Updated: 2022/04/07 13:43:50 by jakoh            ###   ########.fr       */
+/*   Created: 2022/10/05 16:26:47 by nwai-kea          #+#    #+#             */
+/*   Updated: 2022/10/13 13:41:30 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	sub_len(char const *s, size_t start, size_t len);
-
-// return a substring of string s thats
-// starts at index start and given length.
-char	*ft_substr(char const *s, size_t start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*sub;
-	size_t	i;
+	char	*result;
 
 	if (!s)
-		return (NULL);
-	len = sub_len(s, start, len);
-	sub = malloc(sizeof(char) * len + 1);
-	if (!sub)
-		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		sub[i] = s[start];
-		start++;
-		i++;
-	}
-	sub[i] = 0;
-	return (sub);
-}
-
-int	sub_len(char const *s, size_t start, size_t len)
-{
-	size_t	slen;
-
-	slen = ft_strlen(s);
-	if (start >= slen)
 		return (0);
-	if (slen < len)
-		return (slen);
-	return (len);
+	if (ft_strlen(s) < start)
+		len = 0;
+	if (ft_strlen(s + start) < len)
+		len = ft_strlen(s + start);
+	result = (char *)malloc(sizeof(char) * (len + 1));
+	if (!result)
+		return (0);
+	ft_strlcpy(result, s + start, len + 1);
+	return (result);
 }

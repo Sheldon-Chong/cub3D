@@ -1,7 +1,7 @@
-NO ./textures/xpm/tile102.xpm
-                SO              ./textures/xpm/tile104.xpm
-WE ./textures/xpm/tile106.xpm
-   EA ./textures/xpm/tile107.xpm
+NO ./texture/glass4.xpm
+SO ./texture/hallway_metal.xpm
+WE ./texture/mainhall_wall.xpm
+EA ./texture/metal_crate3.xpm
 
 F 10,100,0
 
@@ -19,7 +19,7 @@ C 225,30,0
 11000000111101011100000010001
 10000000000000001100000010001
 10000000000000001101010010001
-11000001110101011111011110N0111
+11000001110101011111011110E0111
 11110111 1110101 101111010001
 11111111 1111111 111111111111
 

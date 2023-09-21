@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwai-kea <nwai-kea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/03 11:44:52 by nwai-kea          #+#    #+#             */
-/*   Updated: 2022/10/05 15:22:34 by nwai-kea         ###   ########.fr       */
+/*   Created: 2023/09/18 22:40:45 by nwai-kea          #+#    #+#             */
+/*   Updated: 2023/09/19 15:50:44 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "cub3d.h"
 
-int	ft_isdigit(int c)
+void	error_mes(char *err)
 {
-	if (c >= 48 && c <= 57)
-		return (1);
-	return (0);
+	ft_putstr_fd(err, 2);
+	// system("leaks");
+	exit(2);
 }

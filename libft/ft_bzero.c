@@ -3,18 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 13:38:04 by jakoh             #+#    #+#             */
-/*   Updated: 2022/04/06 13:39:47 by jakoh            ###   ########.fr       */
+/*   Created: 2022/10/03 15:31:08 by nwai-kea          #+#    #+#             */
+/*   Updated: 2022/10/05 15:34:08 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// Implementation of bzero
-// Writes zeros/NULL to a string
-// Writes n amout of 0 to s
 void	ft_bzero(void *s, size_t n)
 {
 	ft_memset(s, 0, n);

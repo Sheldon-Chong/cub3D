@@ -3,29 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <jakoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/05 15:38:42 by jakoh             #+#    #+#             */
-/*   Updated: 2022/04/05 15:51:24 by jakoh            ###   ########.fr       */
+/*   Created: 2022/10/03 11:54:35 by nwai-kea          #+#    #+#             */
+/*   Updated: 2022/10/05 15:22:59 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// check if c is alphabet or number in ASCII character
 int	ft_isalnum(int c)
 {
-	if (c >= '0' && c <= '9')
-	{
+	if (ft_isalpha(c) || ft_isdigit(c))
 		return (1);
-	}
-	if (c >= 'a' && c <= 'z')
-	{
-		return (1);
-	}
-	if (c >= 'A' && c <= 'Z')
-	{
-		return (1);
-	}
 	return (0);
 }

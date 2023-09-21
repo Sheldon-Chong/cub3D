@@ -3,25 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/11 09:41:32 by jakoh             #+#    #+#             */
-/*   Updated: 2022/04/11 09:41:41 by jakoh            ###   ########.fr       */
+/*   Created: 2022/10/09 11:35:55 by nwai-kea          #+#    #+#             */
+/*   Updated: 2022/10/09 11:37:47 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// find size/length of linked list.
 int	ft_lstsize(t_list *lst)
 {
-	int	i;
+	size_t	count;
 
-	i = 0;
-	while (lst != NULL)
+	count = 0;
+	while (lst)
 	{
-		i++;
 		lst = lst->next;
+		count++;
 	}
-	return (i);
+	return (count);
 }

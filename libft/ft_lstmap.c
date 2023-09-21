@@ -3,37 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jakoh <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/11 10:18:25 by jakoh             #+#    #+#             */
-/*   Updated: 2022/04/11 21:26:49 by jakoh            ###   ########.fr       */
+/*   Created: 2022/10/09 12:03:23 by nwai-kea          #+#    #+#             */
+/*   Updated: 2022/10/15 13:44:35 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// Create a new linked list
-// and apply function f to each node of old linked list
-// and use delete when necessary 
-// (i dont know when & i dont know what it wants).
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*new_lst;
-	t_list	*temp;
+	t_list	*result;
+	t_list	*tmp;
 
-	if (!lst || !f)
-		return (NULL);
-	new_lst = NULL;
-	temp = NULL;
-	while (lst != NULL)
+	if (!lst)
+		return (0);
+	result = ft_lstnew(f(lst->content));
+	if (!result)
+		return (0);
+	tmp = result;
+	lst = lst->next;
+	while (lst)
 	{
-		temp = ft_lstnew(f(lst->content));
-		if (temp == NULL)
-			return (NULL);
-		ft_lstadd_back(&new_lst, temp);
-		if (ft_lstlast(new_lst) == NULL)
-			ft_lstclear(&new_lst, del);
+		tmp->next = ft_lstnew(f(lst->content));
+		if (!tmp->next)
+		{
+			ft_lstclear(&result, del);
+			return (0);
+		}
+		tmp = tmp->next;
 		lst = lst->next;
 	}
-	return (new_lst);
+	return (result);
 }
