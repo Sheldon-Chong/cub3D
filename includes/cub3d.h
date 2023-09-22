@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:43:46 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/09/22 02:10:30 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/09/22 23:26:36 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,37 @@ typedef struct s_map_line
 	struct s_map_line	*next;
 }				t_map_line;
 
+typedef struct s_rc
+{
+	double	dirX;
+	double	dirY;
+	double	planeX;
+	double	planeY;
+	double	camX;
+	double	rayX;
+	double	rayY;
+	int		mapX;
+	int		mapY;
+	double	sideX;
+	double	sideY;
+	double	deltaX;
+	double	deltaY;
+	double	perp_dist;
+	int		stepX;
+	int		stepY;
+	int		hit;
+	int		side;
+	int		start;
+	int		end;
+	double	wallX;
+	int		texX;
+	int		texY;
+	double	step;
+	double	texPos;
+	double	moveSpeed;
+	double	rotateSpeed;
+}				t_rc;
+
 
 typedef struct s_map
 {
@@ -67,12 +98,15 @@ typedef struct s_var
 	t_map	map;
 	t_tex	tex;
 	t_img	screen;
+	t_rc	rc;
 	int		max_h;
 	int		max_w;
+	int		h;
+	int		w;
 }			t_var;
 
 // init.c
-// int			init_var(t_var *var);
+int			init_var(t_var *var);
 
 // error.c
 void		error_mes(char *err);

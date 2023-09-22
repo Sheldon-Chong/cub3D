@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:53:38 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/09/22 02:16:32 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/09/22 23:27:11 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ void	parse_tex(char *line, t_var *var)
 	dir = line[0];
 	line = ft_strchr(line, '.');
 	if (dir == 'N' && !var->tex.n)
-		var->tex.n = mlx_xpm_file_to_image(var->screen.mlx, line, &var->max_w,
-				&var->max_h);
+		var->tex.n = mlx_xpm_file_to_image(var->screen.mlx, line, &var->w,
+				&var->h);
 	else if (dir == 'S' && !var->tex.s)
-		var->tex.s = mlx_xpm_file_to_image(var->screen.mlx, line, &var->max_w,
-				&var->max_h);
+		var->tex.s = mlx_xpm_file_to_image(var->screen.mlx, line, &var->w,
+				&var->h);
 	else if (dir == 'W' && !var->tex.w)
-		var->tex.w = mlx_xpm_file_to_image(var->screen.mlx, line, &var->max_w,
-				&var->max_h);
+		var->tex.w = mlx_xpm_file_to_image(var->screen.mlx, line, &var->w,
+				&var->h);
 	else if (dir == 'E' && !var->tex.e)
-		var->tex.e = mlx_xpm_file_to_image(var->screen.mlx, line, &var->max_w,
-				&var->max_h);
+		var->tex.e = mlx_xpm_file_to_image(var->screen.mlx, line, &var->w,
+				&var->h);
 	if ((dir == 'N' && !var->tex.n) || (dir == 'S' && !var->tex.s)
 		|| (dir == 'W' && !var->tex.w) || (dir == 'E' && !var->tex.e))
 		error_mes("File not found!");
