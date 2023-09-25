@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:53:57 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/09/22 23:39:53 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/09/25 18:54:39 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,21 @@ int	init_mlx(t_img *screen, int h, int w)
 	screen->win = mlx_new_window(screen->mlx, w, h, "cub3d");
 	screen->img = mlx_new_image(screen->mlx, w, h);
 	screen->addr = mlx_get_data_addr(screen->img, &screen->bits_per_pixel,
-			&screen->line_length, &screen->endian);
+		&screen->line_length, &screen->endian);
 	return (1);
 }
 
-// void	init_rc(t_rc *rc)
-// {
-
-// }
+void	rotate(t_rc *rc, char dir)
+{
+	if (dir == 'N')
+		rotate_north(rc);
+	else if (dir == 'S')
+		rotate_south(rc);
+	else if (dir == 'E')
+		rotate_east(rc);
+	else if (dir == 'W')
+		rotate_west(rc);
+}
 
 int	init_var(t_var *var)
 {
@@ -41,6 +48,8 @@ int	init_var(t_var *var)
 	ft_bzero(&var->screen, sizeof(t_img));
 	if (!init_mlx(&var->screen, var->max_h, var->max_w))
 		error_mes("Mlx parsing error!");
-	init_rc(&var->rc);
+	rotate(&var->rc, &var->map.dir);
+	var->rc.mapX = (int)var->map.loc_x;
+	var->rc.mapY = (int)var->map.loc_y;
 	return (0);
 }
