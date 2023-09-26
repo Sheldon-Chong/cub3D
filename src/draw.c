@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 17:47:09 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/09/26 01:58:15 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:47:57 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,21 @@ void	dda(t_rc *rc, t_map *map)
 	}
 }
 
+void	ray_distance(t_rc *rc, t_var *var)
+{
+	if (rc->side == 0)
+		rc->perp_dist = rc->sideX - rc->deltaX;
+	else
+		rc->perp_dist = rc->sideY - rc->deltaY;
+	rc->line_height = (int)(var->max_h / rc->perp_dist);
+	rc->start = (-1 * rc->line_height) / 2 + (var->max_h / 2);
+	if (rc->start < 0)
+		rc->start = 0;
+	rc->end = (rc->line_height / 2) + (var->max_h / 2);
+	if (rc->end >= var->max_h)
+		rc->end = var->max_h - 1;
+}
+
 int	draw_img(t_var *var)
 {
 	int x;
@@ -72,5 +87,9 @@ int	draw_img(t_var *var)
 		var->rc.deltaY = fabs(1 / var->rc.dirY);
 		cal_steps(var);
 		dda(&var->rc, &var->map);
+		ray_distance(&var->rc, &var);
+		draw_tex(&var, x);
+		x++;
 	}
+	return (0);
 }

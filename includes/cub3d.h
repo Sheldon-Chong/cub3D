@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:43:46 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/09/25 18:17:28 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:47:51 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_rc
 	double				texPos;
 	double				moveSpeed;
 	double				rotateSpeed;
+	int					line_height;
 }						t_rc;
 
 typedef struct s_map
@@ -147,5 +148,8 @@ void					rotate_west(t_rc *rc);
 
 // draw.c
 int						draw_img(t_var *var);
+
+// texture.c
+void					draw_tex(t_var *var, int x);
 
 #endif
