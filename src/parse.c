@@ -6,11 +6,27 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:53:38 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/09/22 23:27:11 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/10/13 21:34:38 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+t_img	*put_img(void *mlx, char *image, int w, int h)
+{
+	t_img	*tex;
+
+	tex = malloc(sizeof(t_img));
+	tex->img = mlx_xpm_file_to_image(mlx, image, &w, &h);
+	if (tex->img == NULL)
+	{
+		free(tex);
+		return (NULL);
+	}
+	tex->addr = mlx_get_data_addr(tex->img, &(tex->bits_per_pixel),
+			&(tex->line_length), &(tex->endian));
+	return (tex);
+}
 
 void	parse_tex(char *line, t_var *var)
 {
@@ -21,17 +37,13 @@ void	parse_tex(char *line, t_var *var)
 	dir = line[0];
 	line = ft_strchr(line, '.');
 	if (dir == 'N' && !var->tex.n)
-		var->tex.n = mlx_xpm_file_to_image(var->screen.mlx, line, &var->w,
-				&var->h);
+		var->tex.n = put_img(var->screen.mlx, line, var->w, var->h);
 	else if (dir == 'S' && !var->tex.s)
-		var->tex.s = mlx_xpm_file_to_image(var->screen.mlx, line, &var->w,
-				&var->h);
+		var->tex.s = put_img(var->screen.mlx, line, var->w, var->h);
 	else if (dir == 'W' && !var->tex.w)
-		var->tex.w = mlx_xpm_file_to_image(var->screen.mlx, line, &var->w,
-				&var->h);
+		var->tex.w = put_img(var->screen.mlx, line, var->w, var->h);
 	else if (dir == 'E' && !var->tex.e)
-		var->tex.e = mlx_xpm_file_to_image(var->screen.mlx, line, &var->w,
-				&var->h);
+		var->tex.e = put_img(var->screen.mlx, line, var->w, var->h);
 	if ((dir == 'N' && !var->tex.n) || (dir == 'S' && !var->tex.s)
 		|| (dir == 'W' && !var->tex.w) || (dir == 'E' && !var->tex.e))
 		error_mes("File not found!");
@@ -72,8 +84,8 @@ void	parse_map(char *line, t_map_line **map_lines)
 
 int	parse_file(char *path, t_var *var)
 {
-	char	*line;
-	int		fd;
+	char		*line;
+	int			fd;
 	t_map_line	*map;
 
 	map = NULL;

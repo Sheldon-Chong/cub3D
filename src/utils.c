@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 18:19:33 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/09/22 02:02:05 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/10/05 01:08:49 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,9 @@ int	illegal_map(int x, int y, char **map)
 		return (1);
 	else
 		return (0);
+}
+
+int	rgb(int r, int g, int b)
+{
+	return (0xFFFFFF & (r << 16 | g << 8 | b));
 }

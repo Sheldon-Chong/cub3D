@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:43:46 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/09/26 16:47:51 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/10/15 23:56:33 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,71 +16,30 @@
 # define VALID_CHAR "NSEW01D\f\v\t\r\n "
 # define CURRENT_EXIT_CODE 9
 # define TEXTURE_SIZE 64
+# define LINUX_W 13
+# define LINUX_A 0
+# define LINUX_S 1
+# define LINUX_D 2
+# define LINUX_Q 12
+# define LINUX_E 14
+# define SCREEN_HEIGHT 1080
+# define SCREEN_WIDTH 1920
+# define CELL_SIZE 40
+# define TEX_HEIGHT 64
+# define TEX_WIDTH 64
 # include "../get_next_line/get_next_line.h"
-# include "libft.h"
+# include "../libft/libft.h"
 # include "mlx.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
 
-typedef struct s_tex
+typedef struct s_xy
 {
-	void				*n;
-	void				*s;
-	void				*w;
-	void				*e;
-	int					c[3];
-	int					f[3];
-}						t_tex;
-
-typedef struct s_map_line
-{
-	char				*line;
-	struct s_map_line	*next;
-}						t_map_line;
-
-typedef struct s_rc
-{
-	double				dirX;
-	double				dirY;
-	double				planeX;
-	double				planeY;
-	double				camX;
-	double				rayX;
-	double				rayY;
-	int					mapX;
-	int					mapY;
-	double				sideX;
-	double				sideY;
-	double				deltaX;
-	double				deltaY;
-	double				perp_dist;
-	int					stepX;
-	int					stepY;
-	int					hit;
-	int					side;
-	int					start;
-	int					end;
-	double				wallX;
-	int					texX;
-	int					texY;
-	double				step;
-	double				texPos;
-	double				moveSpeed;
-	double				rotateSpeed;
-	int					line_height;
-}						t_rc;
-
-typedef struct s_map
-{
-	char				**map;
-	int					width;
-	int					height;
-	int					loc_x;
-	int					loc_y;
-	char				dir;
-}						t_map;
+	double				x;
+	double				y;
+}						t_xy;
 
 typedef struct s_img
 {
@@ -92,6 +51,79 @@ typedef struct s_img
 	int					line_length;
 	int					endian;
 }						t_img;
+typedef struct s_tex
+{
+	t_img				*n;
+	t_img				*s;
+	t_img				*w;
+	t_img				*e;
+	int					c[3];
+	int					f[3];
+}						t_tex;
+
+typedef struct s_map_line
+{
+	char				*line;
+	struct s_map_line	*next;
+}						t_map_line;
+
+// typedef struct s_rc
+// {
+// 	double				dir_x;
+// 	double				dir_y;
+// 	double				plane_x;
+// 	double				plane_y;
+// 	double				cam;
+// 	double				ray_x;
+// 	double				ray_y;
+// 	int					map_x;
+// 	int					map_y;
+// 	double				side_x;
+// 	double				side_y;
+// 	double				delta_x;
+// 	double				delta_y;
+// 	double				perp_dist;
+// 	int					step_x;
+// 	int					step_y;
+// 	int					hit;
+// 	int					side;
+// 	int					start;
+// 	int					end;
+// 	double				wall;
+// 	int					tex_x;
+// 	int					tex_y;
+// 	double				step;
+// 	double				tex_pos;
+// 	double				move;
+// 	double				rotate;
+// 	int					line_height;
+// }						t_rc;
+
+typedef struct s_rc
+{
+	t_xy				dir;
+	t_xy				start;
+	t_xy				current_cell;
+	t_xy				cell_step;
+	t_xy				unit_length;
+	t_xy				distance;
+	float				length;
+	int					color;
+	int					xy;
+	int					texture_column;
+	t_img				*texture;
+}						t_rc;
+
+typedef struct s_map
+{
+	char				**map;
+	int					width;
+	int					height;
+	double				loc_x;
+	double				loc_y;
+	char				dir;
+	int					angle;
+}						t_map;
 
 typedef struct s_var
 {
@@ -99,6 +131,7 @@ typedef struct s_var
 	t_tex				tex;
 	t_img				screen;
 	t_rc				rc;
+	int					*sec;
 	int					max_h;
 	int					max_w;
 	int					h;
@@ -106,6 +139,7 @@ typedef struct s_var
 }						t_var;
 
 // init.c
+t_rc					*rc_init(t_xy start, double direction);
 int						init_var(t_var *var);
 
 // error.c
@@ -131,6 +165,7 @@ void					parse_map(char *line, t_map_line **map_lines);
 int						ft_isnum(char *n);
 void					map_line_add_back(t_map_line **map, t_map_line *new);
 int						illegal_map(int x, int y, char **map);
+int						rgb(int r, int g, int b);
 
 // free.c
 void					free_2d(char **arr);
@@ -147,9 +182,16 @@ void					rotate_east(t_rc *rc);
 void					rotate_west(t_rc *rc);
 
 // draw.c
-int						draw_img(t_var *var);
+int						draw_img(void *params);
 
 // texture.c
-void					draw_tex(t_var *var, int x);
+// void					draw_tex(t_var *var, int x);
+void					put_pixel(t_img *img, int x, int y, int color);
+
+//utils2.c
+double					deg2rad(double num);
+t_xy					angle_to_vector(double angle);
+t_xy					op(t_xy xy1, t_xy xy2, char op);
+void					draw_rect(t_img *image, t_xy start, t_xy wh, int color);
 
 #endif

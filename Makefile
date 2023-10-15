@@ -5,11 +5,11 @@ OBJS_DIR	:= ./obj
 
 SRCS		:=	main.c init.c parse.c check.c \
 				utils.c free.c map.c error.c \
-				rotate.c draw.c texture.c \
+				rotate.c draw.c texture.c utils2.c\
 				
 OBJS		:= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
-CC			:= gcc -Wall -Werror -Wextra 
+CC			:= gcc -Wall -Werror -Wextra -g3
 
 FLAGS		:= -fsanitize=address
 MFLAGS 		:= -framework OpenGL -framework AppKit
