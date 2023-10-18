@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:53:38 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/16 15:41:09 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/10/18 17:24:01 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_img	*put_img(void *mlx, char *image)
 
 	tex = malloc(sizeof(t_img));
 	tex->img = mlx_xpm_file_to_image(mlx, image, &w, &h);
-	printf("%s | %p, %p\n", image, tex, tex->img);
 	if (tex->img == NULL)
 	{
 		free(tex);

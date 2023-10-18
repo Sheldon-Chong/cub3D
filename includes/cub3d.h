@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:43:46 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/17 16:04:19 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/10/18 23:37:42 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ typedef struct s_var
 // init.c
 t_rc					*rc_init(t_xy start, double direction);
 int						init_var(t_var *var);
+void					rotate(t_var *var, char dir);
 
 // error.c
 void					error_mes(char *err);

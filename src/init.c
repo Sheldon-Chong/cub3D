@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:53:57 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/16 14:59:37 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/10/18 23:37:22 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int	init_var(t_var *var)
 	ft_bzero(&var->screen, sizeof(t_img));
 	if (!init_mlx(&var->screen, var->max_h - 1, var->max_w - 1))
 		error_mes("Mlx parsing error!");
-	rotate(var, var->map.dir);
 	// var->rc.map_x = var->map.loc_x;
 	// var->rc.map_y = var->map.loc_y;
 	return (0);

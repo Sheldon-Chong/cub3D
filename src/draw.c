@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 17:47:09 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/18 17:16:14 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/10/18 23:33:40 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,7 +225,7 @@ void	cast_ray(t_var *var, t_xy start, double dir, t_rc *rays)
 	dir = deg2rad(dir);
 	rc = rc_init(start, dir);
 	decide_direction(rc);
-	while (rc->length < 10)
+	while (rc->length < 15)
 	{
 		corner = ray_goto_next_cell(rc);
 		if (rc->current_cell.x > 0 && rc->current_cell.y > 0
@@ -246,9 +246,9 @@ void	cast_ray(t_var *var, t_xy start, double dir, t_rc *rays)
 				break ;
 		}
 	}
-	if (rc->length > 10)
-		rc->length = 10;
-	else if (rc->length == 10)
+	if (rc->length > 15)
+		rc->length = 15;
+	if (rc->length == 15)
 		rc->length = 0;
 	rays[0] = *rc;
 }

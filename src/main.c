@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:44:40 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/18 14:29:32 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/10/18 23:38:28 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	main(int argc, char **argv)
 		error_mes("Invalid Number of Arguments.\n");
 	if (init_var(&var) || parse_file(argv[1], &var))
 		return (1);
+	rotate(&var, var.map.dir);
 	mlx_hook(var.screen.win, 2, 1L << 0, handle_keypress, &var);
 	mlx_loop_hook(var.screen.mlx, draw_img, &var);
 	mlx_loop(var.screen.mlx);
