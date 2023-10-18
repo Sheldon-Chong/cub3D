@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:44:40 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/16 15:04:51 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/10/18 14:29:32 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ void	move_player(t_var *frame, t_xy direction_vec)
 
 	new_pos = op((t_xy){frame->map.loc_x, frame->map.loc_y}, direction_vec,
 			'+');
-	if (frame->map.map[(int)frame->map.loc_y][(int)frame->map.loc_x] == '1')
-		printf("error\n");
+	if (frame->map.map[(int)new_pos.y][(int)new_pos.x] == '1')
+		printf("Wall Collision\n");
 	else
 	{
 		frame->map.loc_x = new_pos.x;
