@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:53:57 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/16 00:41:15 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/10/16 14:59:37 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,17 @@ int	init_mlx(t_img *screen, int h, int w)
 	return (1);
 }
 
-// void	rotate(t_rc *rc, char dir)
-// {
-// 	if (dir == 'N')
-// 		rotate_north(rc);
-// 	else if (dir == 'S')
-// 		rotate_south(rc);
-// 	else if (dir == 'E')
-// 		rotate_east(rc);
-// 	else if (dir == 'W')
-// 		rotate_west(rc);
-// }
+void	rotate(t_var *var, char dir)
+{
+	if (dir == 'N')
+		var->map.angle = 0;
+	else if (dir == 'S')
+		var->map.angle = 180;
+	else if (dir == 'E')
+		var->map.angle = 90;
+	else if (dir == 'W')
+		var->map.angle = 270;
+}
 
 t_rc	*rc_init(t_xy start, double direction)
 {
@@ -71,7 +71,7 @@ int	init_var(t_var *var)
 	ft_bzero(&var->screen, sizeof(t_img));
 	if (!init_mlx(&var->screen, var->max_h - 1, var->max_w - 1))
 		error_mes("Mlx parsing error!");
-	// rotate(&var->rc, var->map.dir);
+	rotate(var, var->map.dir);
 	// var->rc.map_x = var->map.loc_x;
 	// var->rc.map_y = var->map.loc_y;
 	return (0);

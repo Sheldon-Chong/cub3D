@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:44:40 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/16 01:04:37 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/10/16 15:04:51 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@ void	move_player(t_var *frame, t_xy direction_vec)
 {
 	t_xy	new_pos;
 
-	printf("%f %f\n", frame->map.loc_x, frame->map.loc_y);
 	new_pos = op((t_xy){frame->map.loc_x, frame->map.loc_y}, direction_vec,
 			'+');
-	if (frame->map.map[(int)frame->map.loc_x][(int)frame->map.loc_y] == '1')
+	if (frame->map.map[(int)frame->map.loc_y][(int)frame->map.loc_x] == '1')
 		printf("error\n");
 	else
 	{

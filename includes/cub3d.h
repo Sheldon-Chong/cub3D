@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:43:46 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/15 23:56:33 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/10/17 16:04:19 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,27 @@
 # define VALID_CHAR "NSEW01D\f\v\t\r\n "
 # define CURRENT_EXIT_CODE 9
 # define TEXTURE_SIZE 64
+# define COLOR_BLACK     0x00000000
+# define COLOR_WHITE     0x00FFFFFF
+# define COLOR_RED       0x00FF0000
+# define COLOR_GREEN     0x0000FF00
+# define COLOR_BLUE      0x000000FF
+# define COLOR_YELLOW    0x00FFFF00
+# define COLOR_MAGENTA   0x00FF00FF
+# define COLOR_CYAN      0x0000FFFF
 # define LINUX_W 13
 # define LINUX_A 0
 # define LINUX_S 1
 # define LINUX_D 2
 # define LINUX_Q 12
 # define LINUX_E 14
-# define SCREEN_HEIGHT 1080
-# define SCREEN_WIDTH 1920
+# define SCREEN_HEIGHT 600
+# define SCREEN_WIDTH 700
 # define CELL_SIZE 40
 # define TEX_HEIGHT 64
 # define TEX_WIDTH 64
+# define SHOW_2D 0
+# define SHOW_3D 1
 # include "../get_next_line/get_next_line.h"
 # include "../libft/libft.h"
 # include "mlx.h"

@@ -38,7 +38,6 @@ int	handle_keypress(int keycode, t_game *frame)
 		player->val += 1;
 	if (keycode == 51) 
 		player->val -= 1;
-	printf("%d \n", keycode);
 	return (0);
 }
 
@@ -236,15 +235,13 @@ int render_3d_view(t_game *game, t_ray *rays, int ray_count)
 		{
 			int i2 = -1;
 			t_texture texture = *(rays[i].texture);
-			
 			while(++i2 < texture.height)
 			{
 				float shape_height = round(SCREEN_HEIGHT * projection_distance /( (rays[i].length * 40) * cos(deg2rad(ray_direction))));
 				t_xy start = (t_xy){current_column, ((SCREEN_HEIGHT - shape_height)) / 2 + (shape_height * ((double)(i2)/(texture.height)))};
 				int color = rays[i].color;
 				if(rays[i].texture)
-					color = get_mlx_pixel_color(texture.img, texture.width - rays[i].texture_column - 1, i2);
-				
+					color = get_mlx_pixel_color(texture.img, texture.width - rays[i].texture_column - 1, i2);	
 				if(start.x < SCREEN_WIDTH && start.x > 0)
 					draw_rect(game->frame, start, (t_xy){next_column - current_column, (shape_height * (1)/(double)(texture.height))}, color);
 			}
@@ -291,7 +288,6 @@ t_data	*put_img(char *image, void *mlx)
 
 	img = malloc(sizeof(t_data));
 	img->img = mlx_xpm_file_to_image(mlx, image, &img_width, &img_height);
-	printf("%s | %p, %p\n", image, img, img->img);
 	if (img->img == NULL)
 	{
 		free(img);
