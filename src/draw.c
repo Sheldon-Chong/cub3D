@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 17:47:09 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/17 23:31:02 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/10/18 17:16:14 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,11 +238,11 @@ void	cast_ray(t_var *var, t_xy start, double dir, t_rc *rays)
 				if (rc->xy == 0)
 					set_ray_textures("SN"[(rc->dir.y) > 0], rc, end_pos, var);
 				if (rc->xy == 1)
-					set_ray_textures("WE"[(rc->dir.y) > 0], rc, end_pos, var);
+					set_ray_textures("WE"[(rc->dir.x) > 0], rc, end_pos, var);
 				break ;
 			}
 			else if (corner == 1
-					&& var->map.map[(int)rc->current_cell.x][(int)rc->current_cell.y] == '1')
+					&& var->map.map[(int)rc->current_cell.y][(int)rc->current_cell.x] == '1')
 				break ;
 		}
 	}
