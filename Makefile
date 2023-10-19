@@ -9,7 +9,7 @@ SRCS		:=	main.c init.c parse.c check.c \
 				
 OBJS		:= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
-CC			:= gcc -Wall -Werror -Wextra -g3
+CC			:= gcc  -g3
 
 FLAGS		:= -fsanitize=address
 MFLAGS 		:= -framework OpenGL -framework AppKit

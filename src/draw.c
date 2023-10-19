@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 17:47:09 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/19 17:18:56 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/10/19 20:25:11 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,14 +175,13 @@ void	draw_grid(void *mlx, void *win, t_xy cell_wh, t_xy gap_wh, char **map)
 // 	}
 // }
 
-t_xy	draw_line_dir(void *mlx, void *mlx_win, t_xy start, double direction,
+t_xy	draw_line_dir(t_img *img, t_xy start, double direction,
 		double distance, int color)
 {
 	double step = 0.1; // Adjust the step size as needed for smoothness
 	for (double t = 0; t <= distance; t += step)
 	{
-		mlx_pixel_put(mlx, mlx_win, start.x + t * cos(direction), start.y + t
-				* sin(direction), color);
+		put_pixel(img, start.x + t * cos(direction), start.y + t * sin(direction), color);
 	}
 	return ((t_xy){start.x + distance * cos(direction), start.y + distance
 		* sin(direction)});
@@ -232,20 +231,18 @@ void	cast_ray(t_var *var, t_xy start, double dir, t_rc *rays)
 	int		l;
 
 	dir = deg2rad(dir);
+	rays->angle = dir;
 	rc = rc_init(start, dir);
 	decide_direction(rc);
 	l = view_depth(var->map.width, var->map.height);
 	while (rc->length < l)
 	{
 		corner = ray_goto_next_cell(rc);
-		// if (rc->current_cell.x > 0 && rc->current_cell.y > 0
-		// 	&& rc->current_cell.x < var->map.width
-		// && rc->current_cell.y < var->map.height)
-		// {
 		if (var->map.map[(int)rc->current_cell.y][(int)rc->current_cell.x] == '1')
 		{
-			end_pos = draw_line_dir(var->screen.mlx, var->screen.win,
+			end_pos = draw_line_dir(&var->minimap,
 					(t_xy){start.x, start.y}, dir, rc->length, COLOR_CYAN);
+			draw_line_dir(&var->minimap,(t_xy){start.x * MINIMAP_SCALE, start.y * MINIMAP_SCALE}, dir, rc->length * MINIMAP_SCALE, rgb(200,200,200));
 			if (rc->xy == 0)
 				set_ray_textures("SN"[(rc->dir.y) > 0], rc, end_pos, var);
 			if (rc->xy == 1)
@@ -255,8 +252,8 @@ void	cast_ray(t_var *var, t_xy start, double dir, t_rc *rays)
 		else if (corner == 1
 				&& var->map.map[(int)rc->current_cell.y][(int)rc->current_cell.x] == '1')
 			break ;
-		// }
 	}
+	
 	if (rc->length > l)
 		rc->length = l;
 	if (rc->length == l)
@@ -289,7 +286,7 @@ int	render_2d_view(t_var *var)
 	draw_rectquare(mlx, mlx_win, cell(op(pos, (t_xy){}, 'i')), cell((t_xy){1,
 				1}), COLOR_YELLOW);
 	draw_rectquare(mlx, mlx_win, cell(pos), (t_xy){10, 10}, COLOR_GREEN);
-	draw_line_dir(mlx, mlx_win, cell(pos), deg2rad(map->angle), 5 * CELL_SIZE,
+	draw_line_dir(&var->minimap, cell(pos), deg2rad(map->angle), 5 * CELL_SIZE,
 			COLOR_BLUE);
 	return (1);
 }
@@ -310,7 +307,7 @@ int	render_3d_view(t_var *var, t_rc *rays, int ray_count)
 	float	shape_height;
 	t_xy	start;
 
-	fov = 66.5;
+	fov = 120;
 	draw_rect(&var->screen, (t_xy){0, 0}, (t_xy){SCREEN_WIDTH, SCREEN_HEIGHT
 			/ 2}, rgb(var->tex.c[0], var->tex.c[1], var->tex.c[2]));
 	draw_rect(&var->screen, (t_xy){0, SCREEN_HEIGHT / 2}, (t_xy){SCREEN_WIDTH,
@@ -338,7 +335,7 @@ int	render_3d_view(t_var *var, t_rc *rays, int ray_count)
 			while (++j < var->h)
 			{
 				shape_height = round(SCREEN_HEIGHT * proj_dist
-						/ ((rays[i].length * 40) * cos(deg2rad(ray_dir))));
+						/ ((rays[i].length * 60) * cos(deg2rad(ray_dir))));
 				start = (t_xy){curr_col, ((SCREEN_HEIGHT - shape_height)) / 2
 					+ (shape_height * ((double)j / var->h))};
 				color = rays[i].color;
@@ -366,6 +363,7 @@ int	draw_img(void *params)
 	(*(var->sec))++;
 	if (*(var->sec) > 300)
 	{
+		draw_rect(&var->minimap, (t_xy){0,0}, (t_xy){var->map.width * MINIMAP_SCALE,var->map.height * MINIMAP_SCALE}, rgb(200,100,100));
 		if (SHOW_2D)
 			render_2d_view(var);
 		rays = malloc(sizeof(t_rc) * (ray_count + 1));
@@ -375,10 +373,33 @@ int	draw_img(void *params)
 					+ (float)(i - (ray_count * 0.5)) / 10, rays + i);
 		if (SHOW_3D)
 		{
+			
 			render_3d_view(var, rays, ray_count);
 			free(rays);
 			mlx_put_image_to_window(var->screen.mlx, var->screen.win,
 					var->screen.img, 0, 0);
+
+			
+			t_xy pos = (t_xy){-1,-1};
+			while(++pos.x < var->map.width)
+				draw_rect(&var->minimap, (t_xy){pos.x * MINIMAP_SCALE,0}, (t_xy){1,var->map.height * MINIMAP_SCALE}, rgb(255,255,255));
+			while(++pos.y < var->map.height)
+				draw_rect(&var->minimap, (t_xy){0,pos.y * MINIMAP_SCALE}, (t_xy){var->map.width * MINIMAP_SCALE,1}, rgb(255,255,255));
+
+			pos = (t_xy){-1,-1};
+			
+			while(++pos.y < var->map.height)
+			{
+				pos.x = - 1;
+				while(++pos.x < var->map.width)
+					if(var->map.map[(int)pos.y][(int)pos.x] == '1')
+						draw_rect(&var->minimap, (t_xy){pos.x * MINIMAP_SCALE,pos.y * MINIMAP_SCALE}, (t_xy){MINIMAP_SCALE,MINIMAP_SCALE}, rgb(0,0,0));
+			}
+			draw_rect(&var->minimap, (t_xy){var->map.loc_x * MINIMAP_SCALE,var->map.loc_y * MINIMAP_SCALE}, (t_xy){5,5}, rgb(0,0,0));
+
+			draw_line_dir(&var->minimap, (t_xy){var->map.loc_x*MINIMAP_SCALE,var->map.loc_y*MINIMAP_SCALE}, deg2rad(var->map.angle), MINIMAP_SCALE, COLOR_CYAN);
+			mlx_put_image_to_window(var->screen.mlx, var->screen.win,
+					var->minimap.img, 20, 20);
 		}
 		*(var->sec) = 0;
 	}
