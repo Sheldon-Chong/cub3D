@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 17:47:09 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/18 23:33:40 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/10/19 17:18:56 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,39 +216,50 @@ void	set_ray_textures(char c, t_rc *rc, t_xy end_pos, t_var *var)
 	rc->texture_column = (int)(dif * var->w);
 }
 
+int	view_depth(int w, int h)
+{
+	if (w >= h)
+		return (w);
+	else
+		return (h);
+}
+
 void	cast_ray(t_var *var, t_xy start, double dir, t_rc *rays)
 {
 	int		corner;
 	t_rc	*rc;
 	t_xy	end_pos;
+	int		l;
 
 	dir = deg2rad(dir);
 	rc = rc_init(start, dir);
 	decide_direction(rc);
-	while (rc->length < 15)
+	l = view_depth(var->map.width, var->map.height);
+	while (rc->length < l)
 	{
 		corner = ray_goto_next_cell(rc);
-		if (rc->current_cell.x > 0 && rc->current_cell.y > 0
-			&& rc->current_cell.x < 30 && rc->current_cell.y < 30)
+		// if (rc->current_cell.x > 0 && rc->current_cell.y > 0
+		// 	&& rc->current_cell.x < var->map.width
+		// && rc->current_cell.y < var->map.height)
+		// {
+		if (var->map.map[(int)rc->current_cell.y][(int)rc->current_cell.x] == '1')
 		{
-			if (var->map.map[(int)rc->current_cell.y][(int)rc->current_cell.x] == '1')
-			{
-				end_pos = draw_line_dir(var->screen.mlx, var->screen.win,
-						(t_xy){start.x, start.y}, dir, rc->length, COLOR_CYAN);
-				if (rc->xy == 0)
-					set_ray_textures("SN"[(rc->dir.y) > 0], rc, end_pos, var);
-				if (rc->xy == 1)
-					set_ray_textures("WE"[(rc->dir.x) > 0], rc, end_pos, var);
-				break ;
-			}
-			else if (corner == 1
-					&& var->map.map[(int)rc->current_cell.y][(int)rc->current_cell.x] == '1')
-				break ;
+			end_pos = draw_line_dir(var->screen.mlx, var->screen.win,
+					(t_xy){start.x, start.y}, dir, rc->length, COLOR_CYAN);
+			if (rc->xy == 0)
+				set_ray_textures("SN"[(rc->dir.y) > 0], rc, end_pos, var);
+			if (rc->xy == 1)
+				set_ray_textures("WE"[(rc->dir.x) > 0], rc, end_pos, var);
+			break ;
 		}
+		else if (corner == 1
+				&& var->map.map[(int)rc->current_cell.y][(int)rc->current_cell.x] == '1')
+			break ;
+		// }
 	}
-	if (rc->length > 15)
-		rc->length = 15;
-	if (rc->length == 15)
+	if (rc->length > l)
+		rc->length = l;
+	if (rc->length == l)
 		rc->length = 0;
 	rays[0] = *rc;
 }
