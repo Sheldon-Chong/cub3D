@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:44:40 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/19 17:12:10 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/10/20 00:24:11 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,25 @@ int	handle_keypress(int keycode, t_var *var)
 		var->map.angle += 5;
 	if (keycode == LINUX_Q)
 		var->map.angle -= 5;
-	// if (keycode == 49)
-	// 	player->val += 1;
-	// if (keycode == 51)
-	// 	player->val -= 1;
+	if (keycode == 53)
+		exit(0);
+	return (0);
+}
+
+int	mouse_move(int x, int y, t_var *var)
+{
+	if (x < 0 || x > SCREEN_WIDTH || y < 0 || y > SCREEN_HEIGHT)
+	{
+		var->mouse_x = x;
+		var->mouse_y = y;
+		return (0);
+	}
+	if (x < var->mouse_x)
+		var->map.angle -= 5;
+	else if (x > var->mouse_x)
+		var->map.angle += 5;
+	var->mouse_x = x;
+	var->mouse_y = y;
 	return (0);
 }
 
@@ -69,6 +84,7 @@ int	main(int argc, char **argv)
 		printf("%s\n", var.map.map[sec]);
 	rotate(&var, var.map.dir);
 	mlx_hook(var.screen.win, 2, 1L << 0, handle_keypress, &var);
+	mlx_hook(var.screen.win, 6, 0, mouse_move, &var);
 	mlx_loop_hook(var.screen.mlx, draw_img, &var);
 	mlx_loop(var.screen.mlx);
 	return (0);

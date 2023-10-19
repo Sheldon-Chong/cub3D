@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:43:46 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/18 23:37:42 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/10/20 00:21:52 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@
 # define VALID_CHAR "NSEW01D\f\v\t\r\n "
 # define CURRENT_EXIT_CODE 9
 # define TEXTURE_SIZE 64
-# define COLOR_BLACK     0x00000000
-# define COLOR_WHITE     0x00FFFFFF
-# define COLOR_RED       0x00FF0000
-# define COLOR_GREEN     0x0000FF00
-# define COLOR_BLUE      0x000000FF
-# define COLOR_YELLOW    0x00FFFF00
-# define COLOR_MAGENTA   0x00FF00FF
-# define COLOR_CYAN      0x0000FFFF
+# define COLOR_BLACK 0x00000000
+# define COLOR_WHITE 0x00FFFFFF
+# define COLOR_RED 0x00FF0000
+# define COLOR_GREEN 0x0000FF00
+# define COLOR_BLUE 0x000000FF
+# define COLOR_YELLOW 0x00FFFF00
+# define COLOR_MAGENTA 0x00FF00FF
+# define COLOR_CYAN 0x0000FFFF
 # define LINUX_W 13
 # define LINUX_A 0
 # define LINUX_S 1
@@ -146,6 +146,8 @@ typedef struct s_var
 	int					max_w;
 	int					h;
 	int					w;
+	int					mouse_x;
+	int					mouse_y;
 }						t_var;
 
 // init.c
