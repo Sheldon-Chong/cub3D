@@ -1,0 +1,22 @@
+NO ./texture/glass.xpm
+SO ./texture/hallway.xpm
+WE ./texture/mainhall.xpm
+EA ./texture/crate.xpm
+
+F 174,198,207
+
+C 0,0,128
+
+
+11111111
+10000001
+10000001
+10000001
+10000001
+11100111
+10000001
+10000001
+100000N1
+11111111
+
+

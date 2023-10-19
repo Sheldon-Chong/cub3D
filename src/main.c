@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:44:40 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/19 17:12:10 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/10/19 19:55:27 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,16 @@ int	handle_keypress(int keycode, t_var *var)
 	// 	player->val += 1;
 	// if (keycode == 51)
 	// 	player->val -= 1;
+	printf("%d\n",var->map.angle);
+	return (0);
+}
+
+
+int	init_minimap(t_img *minimap, void *mlx,int w,  int h)
+{
+	minimap->img = mlx_new_image(mlx, w, h);
+	minimap->addr = mlx_get_data_addr(minimap->img, &minimap->bits_per_pixel,
+			&minimap->line_length, &minimap->endian);
 	return (0);
 }
 
@@ -62,12 +72,14 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 		error_mes("Invalid Number of Arguments.\n");
-	if (init_var(&var) || parse_file(argv[1], &var))
+	if (init_var(&var) || parse_file(argv[1], &var) || init_minimap(&var.minimap, var.screen.mlx, var.map.width *MINIMAP_SCALE, var.map.height *MINIMAP_SCALE))
 		return (1);
 	sec = -1;
 	while (var.map.map[++sec])
 		printf("%s\n", var.map.map[sec]);
 	rotate(&var, var.map.dir);
+	printf("%d, %d\n", var.map.width, var.map.height);
+	
 	mlx_hook(var.screen.win, 2, 1L << 0, handle_keypress, &var);
 	mlx_loop_hook(var.screen.mlx, draw_img, &var);
 	mlx_loop(var.screen.mlx);

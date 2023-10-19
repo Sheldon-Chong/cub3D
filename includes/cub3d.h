@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:43:46 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/18 23:37:42 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/10/19 20:11:27 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define VALID_CHAR "NSEW01D\f\v\t\r\n "
 # define CURRENT_EXIT_CODE 9
 # define TEXTURE_SIZE 64
+# define MINIMAP_SCALE 15
 # define COLOR_BLACK     0x00000000
 # define COLOR_WHITE     0x00FFFFFF
 # define COLOR_RED       0x00FF0000
@@ -31,7 +32,7 @@
 # define LINUX_Q 12
 # define LINUX_E 14
 # define SCREEN_HEIGHT 600
-# define SCREEN_WIDTH 700
+# define SCREEN_WIDTH 1200
 # define CELL_SIZE 40
 # define TEX_HEIGHT 64
 # define TEX_WIDTH 64
@@ -121,6 +122,7 @@ typedef struct s_rc
 	int					color;
 	int					xy;
 	int					texture_column;
+	float 				angle;
 	t_img				*texture;
 }						t_rc;
 
@@ -140,6 +142,7 @@ typedef struct s_var
 	t_map				map;
 	t_tex				tex;
 	t_img				screen;
+	t_img				minimap;
 	t_rc				rc;
 	int					*sec;
 	int					max_h;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 23:34:49 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/09/22 21:17:49 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/10/19 18:58:15 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	map_size(t_map_line **map, t_map *map_det)
 		map_det->height++;
 		line = line->next;
 	}
+	map_det->width -= 1;
 }
 
 void	map_insert(t_map_line **map, t_map *map_det)
