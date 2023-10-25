@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:43:46 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/20 00:26:56 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/10/25 14:49:55 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define LINUX_D 2
 # define LINUX_Q 12
 # define LINUX_E 14
-# define SCREEN_HEIGHT 600
+# define SCREEN_HEIGHT 1100
 # define SCREEN_WIDTH 1200
 # define CELL_SIZE 40
 # define TEX_HEIGHT 64

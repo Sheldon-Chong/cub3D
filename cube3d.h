@@ -28,8 +28,8 @@
 // #define LINUX_E 14
 
 #define CELL_SIZE 40
-#define SCREEN_HEIGHT 600
-#define SCREEN_WIDTH 700
+#define SCREEN_HEIGHT 1000
+#define SCREEN_WIDTH 100
 
 #define CG     0x0000FF00
 #define CB      0x000000FF
