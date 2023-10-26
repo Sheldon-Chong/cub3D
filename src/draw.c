@@ -6,7 +6,7 @@
 /*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 17:47:09 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/25 15:02:20 by shechong         ###   ########.fr       */
+/*   Updated: 2023/10/26 13:47:44 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,8 +171,9 @@ void	cast_ray(t_var *var, t_xy start, double dir, t_rc *rays)
 	dir = deg2rad(dir);
 	
 	rc = rc_init(start, dir);
-	// printf("%f | %f\n", (*rc).angle, rays->angle);
-	rays->angle = dir;
+	
+	rc->angle = dir;
+	//printf("%f | %f | %d\n", (*rc).angle, rc->angle, var->map.angle);
 	decide_direction(rc);
 	l = view_depth(var->map.width, var->map.height);
 	while (rc->length < l)
@@ -195,6 +196,7 @@ void	cast_ray(t_var *var, t_xy start, double dir, t_rc *rays)
 	}
 	if (rc->length == l)
 		rc->length = 0;
+	rc->length *= cos(deg2rad((double)var->map.angle) - (rc->angle));
 	rays[0] = *rc;
 	
 }
@@ -224,6 +226,7 @@ void	render_3d_view(t_var *var, t_rc *rays, int ray_count)
 	draw_rect(&var->screen, (t_xy){0, SCREEN_HEIGHT / 2}, (t_xy){SCREEN_WIDTH,
 			SCREEN_HEIGHT / 2 - 1}, rgb(var->tex.f[0], var->tex.f[1], var->tex.f[2]));
 	proj_dist = 0.5f * CELL_SIZE / tan(deg2rad(0.5f * 58.75f));
+	
 	i = -1;
 	while (++i < ray_count)
 	{
@@ -232,7 +235,7 @@ void	render_3d_view(t_var *var, t_rc *rays, int ray_count)
 			j = -1;
 			while (++j < var->h)
 			{
-				shape_height = round(SCREEN_HEIGHT * proj_dist / ((rays[i].length) * 20));
+				shape_height = round(SCREEN_HEIGHT * proj_dist / ((rays[i].length) * 35));
 				start = (t_xy){i, ((SCREEN_HEIGHT - shape_height)) / 2 + (shape_height * ((double)j / var->h))};
 				if (start.x < SCREEN_WIDTH && start.x > 0)
 					draw_rect(&var->screen, start, (t_xy){1, (shape_height * (1 / (double)var->h))},
@@ -271,7 +274,7 @@ int	draw_img(void *params)
 	t_var	*var;
 	t_rc	*rays;
 	int		ray_count;
-	int		i;
+	double		i;
 
 	var = (t_var *)params;
 	ray_count = SCREEN_WIDTH;
@@ -283,8 +286,12 @@ int	draw_img(void *params)
 		rays = malloc(sizeof(t_rc) * (ray_count + 1));
 		i = -1;
 		while (++i < ray_count)
-			cast_ray(var, (t_xy){var->map.loc_x, var->map.loc_y}, var->map.angle
-					+ (float)(i - (ray_count * 0.5)) / 33, rays + i);		
+		{
+			cast_ray(var, (t_xy){var->map.loc_x, var->map.loc_y},var->map.angle
+					+ (float)(i - (ray_count * 0.5)) / 20, rays + (int)i);
+			
+		}
+			
 		render_3d_view(var, rays, ray_count);
 		free(rays);
 		mlx_put_image_to_window(var->screen.mlx, var->screen.win,
