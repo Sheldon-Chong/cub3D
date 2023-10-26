@@ -6,7 +6,7 @@
 /*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:43:46 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/25 14:49:55 by shechong         ###   ########.fr       */
+/*   Updated: 2023/10/26 14:04:26 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
+
+
+
 
 typedef struct s_xy
 {

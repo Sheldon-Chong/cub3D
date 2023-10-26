@@ -6,7 +6,7 @@
 /*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 17:47:09 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/26 13:47:44 by shechong         ###   ########.fr       */
+/*   Updated: 2023/10/26 14:22:04 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,22 +163,18 @@ int	view_depth(int w, int h)
 
 void	cast_ray(t_var *var, t_xy start, double dir, t_rc *rays)
 {
-	int		corner;
 	t_rc	*rc;
 	t_xy	end_pos;
 	int		l;
 
 	dir = deg2rad(dir);
-	
 	rc = rc_init(start, dir);
-	
 	rc->angle = dir;
-	//printf("%f | %f | %d\n", (*rc).angle, rc->angle, var->map.angle);
 	decide_direction(rc);
 	l = view_depth(var->map.width, var->map.height);
 	while (rc->length < l)
 	{
-		corner = ray_goto_next_cell(rc);
+		ray_goto_next_cell(rc);
 		if (var->map.map[(int)rc->current_cell.y][(int)rc->current_cell.x] == '1')
 		{
 			end_pos = draw_line_dir(&var->minimap,
@@ -190,15 +186,11 @@ void	cast_ray(t_var *var, t_xy start, double dir, t_rc *rays)
 				set_ray_textures("WE"[(rc->dir.x) > 0], rc, end_pos, var);
 			break ;
 		}
-		else if (corner == 1
-				&& var->map.map[(int)rc->current_cell.y][(int)rc->current_cell.x] == '1')
-			break ;
 	}
 	if (rc->length == l)
 		rc->length = 0;
 	rc->length *= cos(deg2rad((double)var->map.angle) - (rc->angle));
 	rays[0] = *rc;
-	
 }
 
 int	get_color(t_img *img, int x, int y)
@@ -211,36 +203,30 @@ int	get_color(t_img *img, int x, int y)
 	return (*(unsigned int *)src);
 }
 
-
-
+float DIR = -30;
 void	render_3d_view(t_var *var, t_rc *rays, int ray_count)
 {
-	int		i;
-	int		j;
-	float	proj_dist;
+	int		x;
+	int		y;
 	float	shape_height;
-	t_xy	start;
+	t_xy	shape_start;
 
 	draw_rect(&var->screen, (t_xy){0, 0}, (t_xy){SCREEN_WIDTH, SCREEN_HEIGHT
 			/ 2}, rgb(var->tex.c[0], var->tex.c[1], var->tex.c[2]));
 	draw_rect(&var->screen, (t_xy){0, SCREEN_HEIGHT / 2}, (t_xy){SCREEN_WIDTH,
 			SCREEN_HEIGHT / 2 - 1}, rgb(var->tex.f[0], var->tex.f[1], var->tex.f[2]));
-	proj_dist = 0.5f * CELL_SIZE / tan(deg2rad(0.5f * 58.75f));
-	
-	i = -1;
-	while (++i < ray_count)
+	float floor_lvl = round(0.5f * SCREEN_HEIGHT * (1+ tan(deg2rad(DIR)))) / tan(deg2rad(0.5f * 55.6));
+	x = -1;
+	while (++x < ray_count)
 	{
-		if (rays[i].length > 0)
+		shape_height = (SCREEN_HEIGHT / ((rays[x].length)));
+		y = -1;
+		while (++y < var->h)
 		{
-			j = -1;
-			while (++j < var->h)
-			{
-				shape_height = round(SCREEN_HEIGHT * proj_dist / ((rays[i].length) * 35));
-				start = (t_xy){i, ((SCREEN_HEIGHT - shape_height)) / 2 + (shape_height * ((double)j / var->h))};
-				if (start.x < SCREEN_WIDTH && start.x > 0)
-					draw_rect(&var->screen, start, (t_xy){1, (shape_height * (1 / (double)var->h))},
-						get_color(rays[i].texture, var->w - rays[i].texture_column - 1, j));
-			}
+			shape_start = (t_xy){x, ((SCREEN_HEIGHT - shape_height)) / 2 + (shape_height * ((double)y / var->h))};
+			if (shape_start.x < SCREEN_WIDTH && shape_start.x > 0)
+				draw_rect(&var->screen, (t_xy){shape_start.x, shape_start.y}, (t_xy){1, (shape_height * (1 / (double)var->h))},
+					get_color(rays[x].texture, var->w - rays[x].texture_column - 1, y));
 		}
 	}
 }
@@ -286,18 +272,15 @@ int	draw_img(void *params)
 		rays = malloc(sizeof(t_rc) * (ray_count + 1));
 		i = -1;
 		while (++i < ray_count)
-		{
 			cast_ray(var, (t_xy){var->map.loc_x, var->map.loc_y},var->map.angle
 					+ (float)(i - (ray_count * 0.5)) / 20, rays + (int)i);
-			
-		}
-			
 		render_3d_view(var, rays, ray_count);
 		free(rays);
 		mlx_put_image_to_window(var->screen.mlx, var->screen.win,
 				var->screen.img, 0, 0);
 		mlx_put_image_to_window(var->screen.mlx, var->screen.win,
 			var->minimap.img, 20, 20);
+		DIR += 0.4;
 		*(var->sec) = 0;
 	}
 	return (1);
