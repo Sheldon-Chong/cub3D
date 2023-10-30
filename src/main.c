@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:44:40 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/30 14:34:22 by shechong         ###   ########.fr       */
+/*   Updated: 2023/10/30 14:41:21 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void	move_player(t_var *frame, t_xy dir_vec)
 	dist = 0.05;
 	new_pos = op((t_xy){frame->map.pos.x, frame->map.pos.y}, dir_vec, '+');
 	if (frame->map.map[(int)new_pos.y][(int)(new_pos.x + dist)] == '1'
-	|| frame->map.map[(int)new_pos.y][(int)(new_pos.x - dist)] == '1'
-	|| frame->map.map[(int)(new_pos.y + dist)][(int)(new_pos.x)] == '1'
-	|| frame->map.map[(int)(new_pos.y - dist)][(int)(new_pos.x)] == '1')
+		|| frame->map.map[(int)new_pos.y][(int)(new_pos.x - dist)] == '1'
+		|| frame->map.map[(int)(new_pos.y + dist)][(int)(new_pos.x)] == '1'
+		|| frame->map.map[(int)(new_pos.y - dist)][(int)(new_pos.x)] == '1')
 		return ;
 	if (frame->map.map[(int)new_pos.y][(int)new_pos.x] != '1')
 	{
@@ -38,16 +38,16 @@ int	handle_keypress(int keycode, t_var *var)
 	amount = 0.1;
 	if (keycode == LINUX_W)
 		move_player(var, op(angle_to_vector(deg2rad(var->map.angle)),
-				(t_xy){amount, amount}, '*'));
+					(t_xy){amount, amount}, '*'));
 	if (keycode == LINUX_A)
 		move_player(var, op(angle_to_vector(deg2rad(var->map.angle - 90)),
-				(t_xy){amount, amount}, '*'));
+					(t_xy){amount, amount}, '*'));
 	if (keycode == LINUX_S)
 		move_player(var, op(angle_to_vector(deg2rad(var->map.angle + 180)),
-				(t_xy){amount, amount}, '*'));
+					(t_xy){amount, amount}, '*'));
 	if (keycode == LINUX_D)
 		move_player(var, op(angle_to_vector(deg2rad(var->map.angle + 90)),
-				(t_xy){amount, amount}, '*'));
+					(t_xy){amount, amount}, '*'));
 	if (keycode == LINUX_E)
 		var->map.angle += 5;
 	if (keycode == LINUX_Q)
@@ -82,16 +82,19 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		error_mes("Invalid Number of Arguments.\n");
 	if (init_var(&var) || parse_file(argv[1], &var)
-		|| init_minimap(&var.minimap, var.screen.mlx, var.map.width
-			* MMAP_SIZE, var.map.height * MMAP_SIZE)
-		|| init_ui(&var.ui, var.screen.mlx))
-		return (1);
+		|| init_minimap(&var.minimap, var.screen.mlx, var.map.width * MMAP_SIZE,
+			var.map.height * MMAP_SIZE) || init_ui(&var.ui, var.screen.mlx))
+		error_mes("Error: Parsing error");
 	rotate(&var, var.map.dir);
 	var.map.pos.y += 0.2;
 	var.player_pov.img = mlx_xpm_file_to_image(var.screen.mlx,
-			"gun.xpm", &var.player_pov.width, &var.player_pov.height);
+												"gun.xpm",
+												&var.player_pov.width,
+												&var.player_pov.height);
 	var.heart.img = mlx_xpm_file_to_image(var.screen.mlx,
-			"cross.xpm", &var.heart.width, &var.heart.height);
+											"cross.xpm",
+											&var.heart.width,
+											&var.heart.height);
 	mlx_hook(var.screen.win, 2, 1L << 0, handle_keypress, &var);
 	mlx_hook(var.screen.win, 6, 0, mouse_move, &var);
 	mlx_loop_hook(var.screen.mlx, draw_img, &var);

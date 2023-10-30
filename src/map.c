@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 23:34:49 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/19 18:58:15 by shechong         ###   ########.fr       */
+/*   Updated: 2023/10/30 00:55:35 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,34 @@ void	map_insert(t_map_line **map, t_map *map_det)
 	map_det->map[i] = NULL;
 }
 
-int		check_map(t_map *map_det)
+int	check_doors(t_map *map_det)
+{
+	int	x;
+	int	y;
+	int	doors;
+
+	y = -1;
+	doors = 0;
+	while (map_det->map[++y])
+	{
+		x = -1;
+		while (map_det->map[y][++x])
+		{
+			if (map_det->map[y][x] == 'D')
+				doors += 1;
+		}
+	}
+	// if (doors > 0)
+	// 	init_door(map_det);
+}
+
+int	check_map(t_map *map_det)
 {
 	if (valid_char(map_det))
 		return (1);
 	if (no_walls(map_det))
+		return (1);
+	if (check_doors(map_det))
 		return (1);
 	return (0);
 }

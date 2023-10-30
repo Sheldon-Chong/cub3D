@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:29:20 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/30 14:30:23 by shechong         ###   ########.fr       */
+/*   Updated: 2023/10/30 14:40:46 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		check_prefix(char *line)
+int	check_prefix(char *line)
 {
-	if (ft_strncmp(line, "NO", 2) == 0 || ft_strncmp(line, "SO", 2) == 0 
-		|| ft_strncmp(line, "WE", 2) == 0  || ft_strncmp(line, "EA", 2) == 0)
+	if (ft_strncmp(line, "NO", 2) == 0 || ft_strncmp(line, "SO", 2) == 0
+		|| ft_strncmp(line, "WE", 2) == 0 || ft_strncmp(line, "EA", 2) == 0)
 	{
 		line = ft_strtrim(line + 2, SPACES);
 		if (ft_strncmp(line, "./", 2) == 0)
@@ -26,7 +26,7 @@ int		check_prefix(char *line)
 
 void	check_line(char *line, t_var *var, t_map_line **map_lines)
 {
-	char		*tmp;
+	char	*tmp;
 
 	tmp = line;
 	line = ft_strtrim(line, SPACES);
@@ -61,7 +61,6 @@ int	check_order(char *path)
 	}
 	if (ft_strncmp(first, "NSWEFC1", 7))
 		error_mes("Wrong order!");
-	// close(fd);
 	return (0);
 }
 
@@ -96,9 +95,9 @@ int	valid_char(t_map *map_det)
 
 int	no_walls(t_map *map_det)
 {
-	int	illegal;
-	int	x;
-	int	y;
+	int illegal;
+	int x;
+	int y;
 
 	illegal = 0;
 	y = -1;
@@ -107,7 +106,8 @@ int	no_walls(t_map *map_det)
 		x = -1;
 		while (map_det->map[y][++x])
 		{
-			if (map_det->map[y][x] == '0' || ft_strchr("NSEWD", map_det->map[y][x]))
+			if (map_det->map[y][x] == '0' || ft_strchr("NSEWD",
+					map_det->map[y][x]))
 			{
 				if (illegal_map(x, y, map_det->map) == 1)
 					illegal = 1;
