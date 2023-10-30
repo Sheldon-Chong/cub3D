@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:01:58 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/16 22:43:45 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/10/30 14:13:24 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,32 +33,7 @@ t_xy	op(t_xy xy1, t_xy xy2, char op)
 	return ((t_xy){0, 0});
 }
 
-void	my_mlx_pixel_put(t_img *image, int x, int y, int color)
+int	rgb(int r, int g, int b)
 {
-	char	*dst;
-
-	if (x < 0 || y < 0)
-		return ;
-	dst = image->addr + (y * image->line_length + x * (image->bits_per_pixel
-				/ 8));
-	*(unsigned int *)dst = color;
-}
-
-void	draw_rect(t_img *image, t_xy start, t_xy wh, int color)
-{
-	int y = -1;
-	int x;
-
-	while (++y < wh.y)
-	{
-		x = -1;
-		while (++x < wh.x)
-		{
-			if (x + start.x > 0 && x + start.x < image->line_length && y
-				+ start.y < SCREEN_HEIGHT - 2 && y + start.y > 0)
-				my_mlx_pixel_put(image, x + start.x, y + start.y, color);
-			if (y + start.y > SCREEN_HEIGHT || start.x + x > SCREEN_WIDTH)
-				break ;
-		}
-	}
+	return (0xFFFFFF & (r << 16 | g << 8 | b));
 }

@@ -6,6 +6,7 @@ OBJS_DIR	:= ./obj
 SRCS		:=	main.c init.c parse.c check.c \
 				utils.c free.c map.c error.c \
 				rotate.c draw.c texture.c utils2.c\
+				rays.c shapes.c mlx.c
 				
 OBJS		:= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 

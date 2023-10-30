@@ -1,0 +1,156 @@
+#include "cub3d.h"
+
+void	decide_direction(t_rc *rc)
+{
+	if (rc->dir.x < 0)
+	{
+		rc->cell_step.x = -1;
+		rc->distance.x = (rc->start.x / CELL_SIZE - rc->current_cell.x)
+			* rc->unit_length.x;
+	}
+	else
+	{
+		rc->cell_step.x = 1;
+		rc->distance.x = ((1 + rc->current_cell.x) - rc->start.x / CELL_SIZE)
+			* rc->unit_length.x;
+	}
+	if (rc->dir.y < 0)
+	{
+		rc->cell_step.y = -1;
+		rc->distance.y = (rc->start.y / CELL_SIZE - rc->current_cell.y)
+			* rc->unit_length.y;
+	}
+	else
+	{
+		rc->cell_step.y = 1;
+		rc->distance.y = ((1 + rc->current_cell.y) - rc->start.y / CELL_SIZE)
+			* rc->unit_length.y;
+	}
+}
+int	ray_goto_next_cell(t_rc *rc)
+{
+	if (rc->distance.x < rc->distance.y)
+	{
+		rc->length = rc->distance.x;
+		rc->distance.x += rc->unit_length.x;
+		rc->current_cell.x += rc->cell_step.x;
+		rc->xy = 1;
+	}
+	else if (rc->distance.x > rc->distance.y)
+	{
+		rc->length = rc->distance.y;
+		rc->distance.y += rc->unit_length.y;
+		rc->current_cell.y += rc->cell_step.y;
+		rc->xy = 0;
+	}
+	else
+	{
+		rc->length = rc->distance.x;
+		rc->distance.x += rc->unit_length.x;
+		rc->distance.y += rc->unit_length.y;
+		rc->current_cell.x += rc->cell_step.x;
+		rc->current_cell.y += rc->cell_step.y;
+	}
+	return (1);
+}
+
+void	set_ray_textures(char c, t_rc *rc, t_xy end_pos, t_var *var)
+{
+	double	dif;
+
+	dif = 0;
+	if (c == 'N')
+	{
+		dif = end_pos.x - rc->current_cell.x;
+		rc->texture = var->tex.n;
+	}
+	else if (c == 'S')
+	{
+		dif = end_pos.x - rc->current_cell.x;
+		rc->texture = var->tex.s;
+	}
+	else if (c == 'E')
+	{
+		dif = end_pos.y - rc->current_cell.y;
+		rc->texture = var->tex.e;
+	}
+	else if (c == 'W')
+	{
+		dif = end_pos.y - rc->current_cell.y;
+		rc->texture = var->tex.w;
+	}
+	rc->texture_column = (int)(dif * var->w);
+}
+
+t_rc	*rc_init(t_xy start, double direction)
+{
+	t_rc	*rc;
+
+	rc = malloc(sizeof(t_rc));
+	rc->dir = (t_xy){cos(direction), sin(direction)};
+	rc->angle = direction;
+	rc->start = (t_xy){start.x * CELL_SIZE, start.y * CELL_SIZE};
+	rc->current_cell = (t_xy){floor(rc->start.x / CELL_SIZE), floor(rc->start.y
+			/ CELL_SIZE)};
+	rc->cell_step = (t_xy){0, 0};
+	rc->unit_length.x = sqrt(1.0 + (rc->dir.y / rc->dir.x) * (rc->dir.y
+				/ rc->dir.x));
+	rc->unit_length.y = sqrt(1.0 + (rc->dir.x / rc->dir.y) * (rc->dir.x
+				/ rc->dir.y));
+	rc->distance = (t_xy){0, 0};
+	rc->length = 0;
+	decide_direction(rc);
+	return (rc);
+}
+
+void	cast_ray(t_var *var, t_xy start, double dir, t_rc *rays)
+{
+	t_rc	*rc;
+	t_xy	end_pos;
+
+	dir = deg2rad(dir);
+	rc = rc_init(start, dir);
+	while (rc->length < 100)
+	{
+		ray_goto_next_cell(rc);
+		if (var->map.map[(int)rc->current_cell.y]
+			[(int)rc->current_cell.x] == '1')
+		{
+			end_pos = draw_line_dir(&var->minimap,
+					(t_xy){start.x, start.y}, dir, rc->length, COLOR_CYAN);
+			draw_line_dir(&var->minimap,
+				(t_xy){start.x * MMAP_SIZE, start.y * MMAP_SIZE},
+				dir, rc->length * MMAP_SIZE, rgb(200, 200, 200));
+			if (rc->xy == 0)
+				set_ray_textures("SN"[(rc->dir.y) > 0], rc, end_pos, var);
+			if (rc->xy == 1)
+				set_ray_textures("WE"[(rc->dir.x) > 0], rc, end_pos, var);
+			break ;
+		}
+	}
+	rc->length *= cos(deg2rad((double)var->map.angle) - (rc->angle));
+	rays[0] = *rc;
+}
+
+t_rc	*cast_rays(t_var *var, int ray_count)
+{
+	t_rc	*rays;
+	int		i;
+
+	i = -1;
+	rays = malloc(sizeof(t_rc) * (ray_count + 1));
+	while (++i < ray_count)
+	{
+		cast_ray(var, (t_xy){var->map.loc_x, var->map.loc_y}, var->map.angle
+			+ (float)(i - (ray_count * 0.5)) / 20, rays + i);
+		if (i < ray_count && rays[i].length < 0.2)
+		{
+			if (i + 1 < ray_count)
+				rays[i + 1] = rays[i];
+			if (i + 2 < ray_count)
+				rays[i + 2] = rays[i];
+			i += 2;
+		}
+	}
+	return (rays);
+}

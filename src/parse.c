@@ -6,29 +6,11 @@
 /*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:53:38 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/30 13:26:16 by shechong         ###   ########.fr       */
+/*   Updated: 2023/10/30 14:17:43 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-t_img	*put_img(void *mlx, char *image)
-{
-	t_img	*tex;
-	int		w;
-	int		h;
-
-	tex = malloc(sizeof(t_img));
-	tex->img = mlx_xpm_file_to_image(mlx, image, &w, &h);
-	if (tex->img == NULL)
-	{
-		free(tex);
-		return (NULL);
-	}
-	tex->addr = mlx_get_data_addr(tex->img, &(tex->bits_per_pixel),
-			&(tex->line_length), &(tex->endian));
-	return (tex);
-}
 
 void	parse_tex(char *line, t_var *var)
 {
@@ -39,13 +21,13 @@ void	parse_tex(char *line, t_var *var)
 	dir = line[0];
 	line = ft_strchr(line, '.');
 	if (dir == 'N' && !var->tex.n)
-		var->tex.n = put_img(var->screen.mlx, line);
+		var->tex.n = new_img(var->screen.mlx, line);
 	else if (dir == 'S' && !var->tex.s)
-		var->tex.s = put_img(var->screen.mlx, line);
+		var->tex.s = new_img(var->screen.mlx, line);
 	else if (dir == 'W' && !var->tex.w)
-		var->tex.w = put_img(var->screen.mlx, line);
+		var->tex.w = new_img(var->screen.mlx, line);
 	else if (dir == 'E' && !var->tex.e)
-		var->tex.e = put_img(var->screen.mlx, line);
+		var->tex.e = new_img(var->screen.mlx, line);
 	if ((dir == 'N' && !var->tex.n) || (dir == 'S' && !var->tex.s)
 		|| (dir == 'W' && !var->tex.w) || (dir == 'E' && !var->tex.e))
 		error_mes("File not found!");

@@ -6,7 +6,7 @@
 /*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:44:40 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/30 13:29:05 by shechong         ###   ########.fr       */
+/*   Updated: 2023/10/30 14:19:52 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,8 @@ int	main(int argc, char **argv)
 		return (1);
 	rotate(&var, var.map.dir);
 	var.map.loc_y += 0.2;
-	var.player_pov.img = mlx_xpm_file_to_image(var.screen.mlx,
-			"gun.xpm", &var.player_pov.width, &var.player_pov.height);
-	var.heart.img = mlx_xpm_file_to_image(var.screen.mlx,
-			"cross.xpm", &var.heart.width, &var.heart.height);
+	var.player_pov.img = new_img(var.screen.mlx, "gun.xpm");
+	var.heart.img = new_img(var.screen.mlx, "cross.xpm");
 	mlx_hook(var.screen.win, 2, 1L << 0, handle_keypress, &var);
 	mlx_hook(var.screen.win, 6, 0, mouse_move, &var);
 	mlx_loop_hook(var.screen.mlx, draw_img, &var);

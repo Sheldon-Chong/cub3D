@@ -6,7 +6,7 @@
 /*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:43:46 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/30 13:25:02 by shechong         ###   ########.fr       */
+/*   Updated: 2023/10/30 14:18:09 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,5 +217,21 @@ double					deg2rad(double num);
 t_xy					angle_to_vector(double angle);
 t_xy					op(t_xy xy1, t_xy xy2, char op);
 void					draw_rect(t_img *image, t_xy start, t_xy wh, int color);
+int						get_color(t_img *img, int x, int y);
+
+void					decide_direction(t_rc *rc);
+int						ray_goto_next_cell(t_rc *rc);
+void					set_ray_textures(char c, t_rc *rc,
+							t_xy end_pos, t_var *var);
+t_rc					*rc_init(t_xy start, double direction);
+void					cast_ray(t_var *var, t_xy start,
+							double dir, t_rc *rays);
+t_rc					*cast_rays(t_var *var, int ray_count);
+int						draw_img(void *params);
+t_xy					draw_line_dir(t_img *img, t_xy start, double direction,
+							double distance, int color);
+void					place_pixel(t_img *image, int x, int y, int color);
+t_img					*new_img(void *mlx, char *image);
+
 
 #endif
