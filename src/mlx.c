@@ -36,3 +36,15 @@ t_img	*new_img(void *mlx, char *image)
 			&(tex->line_length), &(tex->endian));
 	return (tex);
 }
+
+void	put_pixel(t_img *img, int x, int y, int color)
+{
+	char	*pixel;
+
+	if (x > 0 && y > 0 && x < 1920 && y < 1080)
+	{
+		pixel = img->addr + (y * img->line_length + x * (img->bits_per_pixel
+					/ 8));
+		*(unsigned int *)pixel = color;
+	}
+}

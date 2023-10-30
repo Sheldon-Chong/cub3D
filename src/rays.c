@@ -131,26 +131,3 @@ void	cast_ray(t_var *var, t_xy start, double dir, t_rc *rays)
 	rc->length *= cos(deg2rad((double)var->map.angle) - (rc->angle));
 	rays[0] = *rc;
 }
-
-t_rc	*cast_rays(t_var *var, int ray_count)
-{
-	t_rc	*rays;
-	int		i;
-
-	i = -1;
-	rays = malloc(sizeof(t_rc) * (ray_count + 1));
-	while (++i < ray_count)
-	{
-		cast_ray(var, (t_xy){var->map.loc_x, var->map.loc_y}, var->map.angle
-			+ (float)(i - (ray_count * 0.5)) / 20, rays + i);
-		if (i < ray_count && rays[i].length < 0.2)
-		{
-			if (i + 1 < ray_count)
-				rays[i + 1] = rays[i];
-			if (i + 2 < ray_count)
-				rays[i + 2] = rays[i];
-			i += 2;
-		}
-	}
-	return (rays);
-}

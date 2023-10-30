@@ -6,7 +6,7 @@
 /*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:43:46 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/30 14:18:09 by shechong         ###   ########.fr       */
+/*   Updated: 2023/10/30 14:32:38 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,38 +83,6 @@ typedef struct s_map_line
 	struct s_map_line	*next;
 }						t_map_line;
 
-// typedef struct s_rc
-// {
-// 	double				dir_x;
-// 	double				dir_y;
-// 	double				plane_x;
-// 	double				plane_y;
-// 	double				cam;
-// 	double				ray_x;
-// 	double				ray_y;
-// 	int					map_x;
-// 	int					map_y;
-// 	double				side_x;
-// 	double				side_y;
-// 	double				delta_x;
-// 	double				delta_y;
-// 	double				perp_dist;
-// 	int					step_x;
-// 	int					step_y;
-// 	int					hit;
-// 	int					side;
-// 	int					start;
-// 	int					end;
-// 	double				wall;
-// 	int					tex_x;
-// 	int					tex_y;
-// 	double				step;
-// 	double				tex_pos;
-// 	double				move;
-// 	double				rotate;
-// 	int					line_height;
-// }						t_rc;
-
 typedef struct s_rc
 {
 	t_xy				dir;
@@ -136,8 +104,7 @@ typedef struct s_map
 	char				**map;
 	int					width;
 	int					height;
-	double				loc_x;
-	double				loc_y;
+	t_xy				pos;
 	char				dir;
 	int					angle;
 }						t_map;
@@ -232,6 +199,8 @@ t_xy					draw_line_dir(t_img *img, t_xy start, double direction,
 							double distance, int color);
 void					place_pixel(t_img *image, int x, int y, int color);
 t_img					*new_img(void *mlx, char *image);
+int	init_minimap(t_img *minimap, void *mlx, int w, int h);
+int	init_ui(t_img *ui, void *mlx);
 
 
 #endif

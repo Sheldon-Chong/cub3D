@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:29:20 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/09/22 02:15:42 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/10/30 14:30:23 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ int	valid_char(t_map *map_det)
 			else if (ft_strchr("NSEW", map_det->map[j][i]))
 			{
 				map_det->dir = map_det->map[j][i];
-				map_det->loc_x = i;
-				map_det->loc_y = j;
+				map_det->pos.x = i;
+				map_det->pos.y = j;
 				count++;
 			}
 		}

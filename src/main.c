@@ -6,7 +6,7 @@
 /*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:44:40 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/30 14:19:52 by shechong         ###   ########.fr       */
+/*   Updated: 2023/10/30 14:34:22 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	move_player(t_var *frame, t_xy dir_vec)
 	double	dist;
 
 	dist = 0.05;
-	new_pos = op((t_xy){frame->map.loc_x, frame->map.loc_y}, dir_vec, '+');
+	new_pos = op((t_xy){frame->map.pos.x, frame->map.pos.y}, dir_vec, '+');
 	if (frame->map.map[(int)new_pos.y][(int)(new_pos.x + dist)] == '1'
 	|| frame->map.map[(int)new_pos.y][(int)(new_pos.x - dist)] == '1'
 	|| frame->map.map[(int)(new_pos.y + dist)][(int)(new_pos.x)] == '1'
@@ -26,8 +26,8 @@ void	move_player(t_var *frame, t_xy dir_vec)
 		return ;
 	if (frame->map.map[(int)new_pos.y][(int)new_pos.x] != '1')
 	{
-		frame->map.loc_x = new_pos.x;
-		frame->map.loc_y = new_pos.y;
+		frame->map.pos.x = new_pos.x;
+		frame->map.pos.y = new_pos.y;
 	}
 }
 
@@ -74,24 +74,6 @@ int	mouse_move(int x, int y, t_var *var)
 	return (0);
 }
 
-int	init_minimap(t_img *minimap, void *mlx, int w, int h)
-{
-	minimap->img = mlx_new_image(mlx, w, h);
-	minimap->addr = mlx_get_data_addr(minimap->img, &minimap->bits_per_pixel,
-			&minimap->line_length, &minimap->endian);
-	return (0);
-}
-
-int	init_ui(t_img *ui, void *mlx)
-{
-	ui->img = mlx_new_image(mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	ui->addr = mlx_get_data_addr(ui->img, &ui->bits_per_pixel,
-			&ui->line_length, &ui->endian);
-	draw_rect (ui, (t_xy){0, 0},
-		(t_xy){SCREEN_WIDTH, SCREEN_HEIGHT}, 0xFFFF0000);
-	return (0);
-}
-
 int	main(int argc, char **argv)
 {
 	t_var	var;
@@ -105,9 +87,11 @@ int	main(int argc, char **argv)
 		|| init_ui(&var.ui, var.screen.mlx))
 		return (1);
 	rotate(&var, var.map.dir);
-	var.map.loc_y += 0.2;
-	var.player_pov.img = new_img(var.screen.mlx, "gun.xpm");
-	var.heart.img = new_img(var.screen.mlx, "cross.xpm");
+	var.map.pos.y += 0.2;
+	var.player_pov.img = mlx_xpm_file_to_image(var.screen.mlx,
+			"gun.xpm", &var.player_pov.width, &var.player_pov.height);
+	var.heart.img = mlx_xpm_file_to_image(var.screen.mlx,
+			"cross.xpm", &var.heart.width, &var.heart.height);
 	mlx_hook(var.screen.win, 2, 1L << 0, handle_keypress, &var);
 	mlx_hook(var.screen.win, 6, 0, mouse_move, &var);
 	mlx_loop_hook(var.screen.mlx, draw_img, &var);

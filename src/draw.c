@@ -6,7 +6,7 @@
 /*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 17:47:09 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/30 14:09:25 by shechong         ###   ########.fr       */
+/*   Updated: 2023/10/30 14:30:23 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,10 @@ void	draw_minimap(t_var *var)
 				draw_rect(&var->minimap, (t_xy){pos.x * MMAP_SIZE, pos.y
 					* MMAP_SIZE}, (t_xy){MMAP_SIZE, MMAP_SIZE}, rgb(0, 0, 0));
 	}
-	draw_rect(&var->minimap, (t_xy){var->map.loc_x * MMAP_SIZE,
-		var->map.loc_y * MMAP_SIZE}, (t_xy){5, 5}, COLOR_BLACK);
-	draw_line_dir(&var->minimap, (t_xy){var->map.loc_x * MMAP_SIZE,
-		var->map.loc_y * MMAP_SIZE},
+	draw_rect(&var->minimap, (t_xy){var->map.pos.x * MMAP_SIZE,
+		var->map.pos.y * MMAP_SIZE}, (t_xy){5, 5}, COLOR_BLACK);
+	draw_line_dir(&var->minimap, (t_xy){var->map.pos.x * MMAP_SIZE,
+		var->map.pos.y * MMAP_SIZE},
 		deg2rad(var->map.angle), MMAP_SIZE, COLOR_CYAN);
 }
 
@@ -107,4 +107,27 @@ int	draw_img(void *params)
 		*(var->sec) = 0;
 	}
 	return (1);
+}
+
+t_rc	*cast_rays(t_var *var, int ray_count)
+{
+	t_rc	*rays;
+	int		i;
+
+	i = -1;
+	rays = malloc(sizeof(t_rc) * (ray_count + 1));
+	while (++i < ray_count)
+	{
+		cast_ray(var, (t_xy){var->map.pos.x, var->map.pos.y}, var->map.angle
+			+ (float)(i - (ray_count * 0.5)) / 20, rays + i);
+		if (i < ray_count && rays[i].length < 0.2)
+		{
+			if (i + 1 < ray_count)
+				rays[i + 1] = rays[i];
+			if (i + 2 < ray_count)
+				rays[i + 2] = rays[i];
+			i += 2;
+		}
+	}
+	return (rays);
 }
