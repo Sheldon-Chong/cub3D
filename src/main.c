@@ -6,21 +6,25 @@
 /*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:44:40 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/25 13:27:11 by shechong         ###   ########.fr       */
+/*   Updated: 2023/10/30 13:29:05 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	move_player(t_var *frame, t_xy direction_vec)
+void	move_player(t_var *frame, t_xy dir_vec)
 {
 	t_xy	new_pos;
+	double	dist;
 
-	new_pos = op((t_xy){frame->map.loc_x, frame->map.loc_y}, direction_vec,
-			'+');
-	if (frame->map.map[(int)new_pos.y][(int)new_pos.x] == '1')
-		printf("Wall Collision\n");
-	else
+	dist = 0.05;
+	new_pos = op((t_xy){frame->map.loc_x, frame->map.loc_y}, dir_vec, '+');
+	if (frame->map.map[(int)new_pos.y][(int)(new_pos.x + dist)] == '1'
+	|| frame->map.map[(int)new_pos.y][(int)(new_pos.x - dist)] == '1'
+	|| frame->map.map[(int)(new_pos.y + dist)][(int)(new_pos.x)] == '1'
+	|| frame->map.map[(int)(new_pos.y - dist)][(int)(new_pos.x)] == '1')
+		return ;
+	if (frame->map.map[(int)new_pos.y][(int)new_pos.x] != '1')
 	{
 		frame->map.loc_x = new_pos.x;
 		frame->map.loc_y = new_pos.y;
@@ -34,26 +38,22 @@ int	handle_keypress(int keycode, t_var *var)
 	amount = 0.1;
 	if (keycode == LINUX_W)
 		move_player(var, op(angle_to_vector(deg2rad(var->map.angle)),
-					(t_xy){amount, amount}, '*'));
+				(t_xy){amount, amount}, '*'));
 	if (keycode == LINUX_A)
 		move_player(var, op(angle_to_vector(deg2rad(var->map.angle - 90)),
-					(t_xy){amount, amount}, '*'));
+				(t_xy){amount, amount}, '*'));
 	if (keycode == LINUX_S)
 		move_player(var, op(angle_to_vector(deg2rad(var->map.angle + 180)),
-					(t_xy){amount, amount}, '*'));
+				(t_xy){amount, amount}, '*'));
 	if (keycode == LINUX_D)
 		move_player(var, op(angle_to_vector(deg2rad(var->map.angle + 90)),
-					(t_xy){amount, amount}, '*'));
+				(t_xy){amount, amount}, '*'));
 	if (keycode == LINUX_E)
 		var->map.angle += 5;
 	if (keycode == LINUX_Q)
 		var->map.angle -= 5;
 	if (keycode == 53)
 		exit(0);
-	// if (keycode == 49)
-	// 	player->val += 1;
-	// if (keycode == 51)
-	// 	player->val -= 1;
 	return (0);
 }
 
@@ -82,6 +82,16 @@ int	init_minimap(t_img *minimap, void *mlx, int w, int h)
 	return (0);
 }
 
+int	init_ui(t_img *ui, void *mlx)
+{
+	ui->img = mlx_new_image(mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
+	ui->addr = mlx_get_data_addr(ui->img, &ui->bits_per_pixel,
+			&ui->line_length, &ui->endian);
+	draw_rect (ui, (t_xy){0, 0},
+		(t_xy){SCREEN_WIDTH, SCREEN_HEIGHT}, 0xFFFF0000);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_var	var;
@@ -91,11 +101,15 @@ int	main(int argc, char **argv)
 		error_mes("Invalid Number of Arguments.\n");
 	if (init_var(&var) || parse_file(argv[1], &var)
 		|| init_minimap(&var.minimap, var.screen.mlx, var.map.width
-			* MINIMAP_SCALE, var.map.height * MINIMAP_SCALE))
+			* MMAP_SIZE, var.map.height * MMAP_SIZE)
+		|| init_ui(&var.ui, var.screen.mlx))
 		return (1);
 	rotate(&var, var.map.dir);
-	printf("%d, %d\n", var.map.width, var.map.height);
 	var.map.loc_y += 0.2;
+	var.player_pov.img = mlx_xpm_file_to_image(var.screen.mlx,
+			"gun.xpm", &var.player_pov.width, &var.player_pov.height);
+	var.heart.img = mlx_xpm_file_to_image(var.screen.mlx,
+			"cross.xpm", &var.heart.width, &var.heart.height);
 	mlx_hook(var.screen.win, 2, 1L << 0, handle_keypress, &var);
 	mlx_hook(var.screen.win, 6, 0, mouse_move, &var);
 	mlx_loop_hook(var.screen.mlx, draw_img, &var);

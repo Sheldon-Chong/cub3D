@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:53:38 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/18 17:24:01 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/10/30 13:26:16 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,24 +54,27 @@ void	parse_tex(char *line, t_var *var)
 void	parse_color(char *line, t_var *var)
 {
 	int		i;
-	char	**rgb;
+	char	**char_rgb;
 	char	dir;
+	int		test[3];
 
 	i = 0;
 	dir = line[0];
 	line = ft_strchr(line, ' ') + 1;
-	rgb = ft_split(line, ',');
-	while (rgb[i])
+	char_rgb = ft_split(line, ',');
+	while (char_rgb[i])
 	{
-		if (ft_isnum(rgb[i]) || ft_atoi(rgb[i]) < 0 || ft_atoi(rgb[i]) > 255)
+		if (ft_isnum(char_rgb[i]) || ft_atoi(char_rgb[i]) < 0
+			|| ft_atoi(char_rgb[i]) > 255)
 			error_mes("Color Error!");
-		if (dir == 'F')
-			var->tex.f[i] = ft_atoi(rgb[i]);
-		else if (dir == 'C')
-			var->tex.c[i] = ft_atoi(rgb[i]);
+		test[i] = ft_atoi(char_rgb[i]);
 		i++;
 	}
-	free_2d(rgb);
+	if (dir == 'F')
+		var->tex.floor = rgb(test[0], test[1], test[2]);
+	if (dir == 'C')
+		var->tex.ceiling = rgb(test[0], test[1], test[2]);
+	free_2d(char_rgb);
 }
 
 void	parse_map(char *line, t_map_line **map_lines)

@@ -6,7 +6,7 @@
 /*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:43:46 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/26 14:04:26 by shechong         ###   ########.fr       */
+/*   Updated: 2023/10/30 13:25:02 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define VALID_CHAR "NSEW01D\f\v\t\r\n "
 # define CURRENT_EXIT_CODE 9
 # define TEXTURE_SIZE 64
-# define MINIMAP_SCALE 15
+# define MMAP_SIZE 15
 # define COLOR_BLACK 0x00000000
 # define COLOR_WHITE 0x00FFFFFF
 # define COLOR_RED 0x00FF0000
@@ -64,6 +64,8 @@ typedef struct s_img
 	int					bits_per_pixel;
 	int					line_length;
 	int					endian;
+	int					width;
+	int					height;
 }						t_img;
 typedef struct s_tex
 {
@@ -71,8 +73,8 @@ typedef struct s_tex
 	t_img				*s;
 	t_img				*w;
 	t_img				*e;
-	int					c[3];
-	int					f[3];
+	int					ceiling;
+	int					floor;
 }						t_tex;
 
 typedef struct s_map_line
@@ -146,6 +148,9 @@ typedef struct s_var
 	t_tex				tex;
 	t_img				screen;
 	t_img				minimap;
+	t_img				ui;
+	t_img				heart;
+	t_img				player_pov;
 	t_rc				rc;
 	int					*sec;
 	int					max_h;
