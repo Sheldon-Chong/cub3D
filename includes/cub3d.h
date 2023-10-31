@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:43:46 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/30 14:40:26 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/10/31 18:41:37 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define LINUX_D 2
 # define LINUX_Q 12
 # define LINUX_E 14
+# define LINUX_X 7
 # define SCREEN_HEIGHT 1100
 # define SCREEN_WIDTH 1200
 # define CELL_SIZE 40
@@ -70,18 +71,12 @@ typedef struct s_tex
 	t_img				*s;
 	t_img				*w;
 	t_img				*e;
+	t_img				*door;
+	t_img				*door_open;
 	int					ceiling;
 	int					floor;
 }						t_tex;
 
-// typedef struct s_door
-// {
-// 	t_xy				coord;
-// 	int					status;
-// 	t_img				*open;
-// 	t_img				*closed;
-// 	t_door				*next;
-// }						t_door;
 typedef struct s_map_line
 {
 	char				*line;
@@ -169,7 +164,7 @@ void					free_2d(char **arr);
 // map.c
 void					map_size(t_map_line **map, t_map *map_det);
 void					map_insert(t_map_line **map, t_map *map_det);
-int						check_map(t_map *map_det);
+int						check_map(t_map *map_det, t_tex *tex, void *mlx);
 
 // rotate.c
 void					rotate_north(t_rc *rc);
@@ -190,6 +185,11 @@ t_xy					angle_to_vector(double angle);
 t_xy					op(t_xy xy1, t_xy xy2, char op);
 void					draw_rect(t_img *image, t_xy start, t_xy wh, int color);
 int						get_color(t_img *img, int x, int y);
+void					set_door_tex(t_rc *rc, t_xy end_pos, t_var *var);
+
+//door.c
+int						handle_keyrelease(int keycode, t_var *var);
+// void					set_door_close_tex(t_rc *rc, t_xy end_pos, t_var *var);
 
 void					decide_direction(t_rc *rc);
 int						ray_goto_next_cell(t_rc *rc);

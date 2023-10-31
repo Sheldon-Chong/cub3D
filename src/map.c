@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 23:34:49 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/30 00:55:35 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/10/31 18:42:08 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	map_insert(t_map_line **map, t_map *map_det)
 	map_det->map[i] = NULL;
 }
 
-int	check_doors(t_map *map_det)
+int	check_doors(t_map *map_det, t_tex *tex, void *mlx)
 {
 	int	x;
 	int	y;
@@ -60,21 +60,27 @@ int	check_doors(t_map *map_det)
 		x = -1;
 		while (map_det->map[y][++x])
 		{
-			if (map_det->map[y][x] == 'D')
+			if (map_det->map[y][x] == 'D' || map_det->map[y][x] == 'O')
 				doors += 1;
 		}
 	}
-	// if (doors > 0)
-	// 	init_door(map_det);
+	if (doors > 0 && !tex->door && !tex->door_open)
+	{
+		tex->door = new_img(mlx, "./texture/door.xpm");
+		tex->door_open = new_img(mlx, "./texture/door_open.xpm");
+	}
+	if (!tex->door || !tex->door_open)
+		return (1);
+	return (0);
 }
 
-int	check_map(t_map *map_det)
+int	check_map(t_map *map_det, t_tex *tex, void *mlx)
 {
 	if (valid_char(map_det))
 		return (1);
 	if (no_walls(map_det))
 		return (1);
-	if (check_doors(map_det))
+	if (check_doors(map_det, tex, mlx))
 		return (1);
 	return (0);
 }

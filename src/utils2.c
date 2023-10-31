@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 22:01:58 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/30 14:13:24 by shechong         ###   ########.fr       */
+/*   Updated: 2023/10/30 18:30:26 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,22 @@ t_xy	op(t_xy xy1, t_xy xy2, char op)
 int	rgb(int r, int g, int b)
 {
 	return (0xFFFFFF & (r << 16 | g << 8 | b));
+}
+
+void	set_door_tex(t_rc *rc, t_xy end_pos, t_var *var)
+{
+	double dif;
+
+	dif = 0;
+	if (rc->xy == 0)
+	{
+		dif = end_pos.x - rc->current_cell.x;
+		rc->texture = var->tex.door;
+	}
+	else if (rc->xy == 1)
+	{
+		dif = end_pos.y - rc->current_cell.y;
+		rc->texture = var->tex.door;
+	}
+	rc->texture_column = (int)(dif * var->w);
 }

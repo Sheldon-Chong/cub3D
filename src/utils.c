@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 18:19:33 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/30 14:33:56 by shechong         ###   ########.fr       */
+/*   Updated: 2023/10/31 17:39:23 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ void	map_line_add_back(t_map_line **map, t_map_line *new)
 
 int	illegal_map(int x, int y, char **map)
 {
-	if (!map[y][x + 1] || (!ft_strchr("NSEWD10", map[y][x + 1])))
+	if (!map[y][x + 1] || (!ft_strchr("NSEWD10O", map[y][x + 1])))
 		return (1);
-	else if (!map[y][x - 1] || (!ft_strchr("NSEWD10", map[y][x - 1])))
+	else if (!map[y][x - 1] || (!ft_strchr("NSEWD10O", map[y][x - 1])))
 		return (1);
-	else if (!map[y + 1][x] || (!ft_strchr("NSEWD10", map[y + 1][x])))
+	else if (!map[y + 1][x] || (!ft_strchr("NSEWD10O", map[y + 1][x])))
 		return (1);
-	else if (!map[y - 1][x] || (!ft_strchr("NSEWD10", map[y - 1][x])))
+	else if (!map[y - 1][x] || (!ft_strchr("NSEWD10O", map[y - 1][x])))
 		return (1);
 	else
 		return (0);

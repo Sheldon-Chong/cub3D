@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:44:40 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/30 14:41:21 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/10/31 16:38:45 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,12 @@ void	move_player(t_var *frame, t_xy dir_vec)
 		|| frame->map.map[(int)(new_pos.y + dist)][(int)(new_pos.x)] == '1'
 		|| frame->map.map[(int)(new_pos.y - dist)][(int)(new_pos.x)] == '1')
 		return ;
-	if (frame->map.map[(int)new_pos.y][(int)new_pos.x] != '1')
+	else if (frame->map.map[(int)new_pos.y][(int)(new_pos.x + dist)] == 'D'
+		|| frame->map.map[(int)new_pos.y][(int)(new_pos.x - dist)] == 'D'
+		|| frame->map.map[(int)(new_pos.y + dist)][(int)(new_pos.x)] == 'D'
+		|| frame->map.map[(int)(new_pos.y - dist)][(int)(new_pos.x)] == 'D')
+		return ;
+	if (frame->map.map[(int)new_pos.y][(int)new_pos.x] != '1' || frame->map.map[(int)new_pos.y][(int)new_pos.x] != 'D')
 	{
 		frame->map.pos.x = new_pos.x;
 		frame->map.pos.y = new_pos.y;
@@ -52,8 +57,6 @@ int	handle_keypress(int keycode, t_var *var)
 		var->map.angle += 5;
 	if (keycode == LINUX_Q)
 		var->map.angle -= 5;
-	if (keycode == 53)
-		exit(0);
 	return (0);
 }
 
@@ -96,6 +99,7 @@ int	main(int argc, char **argv)
 											&var.heart.width,
 											&var.heart.height);
 	mlx_hook(var.screen.win, 2, 1L << 0, handle_keypress, &var);
+	mlx_hook(var.screen.win, 3, 0, handle_keyrelease, &var);
 	mlx_hook(var.screen.win, 6, 0, mouse_move, &var);
 	mlx_loop_hook(var.screen.mlx, draw_img, &var);
 	mlx_loop(var.screen.mlx);

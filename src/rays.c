@@ -27,6 +27,7 @@ void	decide_direction(t_rc *rc)
 			* rc->unit_length.y;
 	}
 }
+
 int	ray_goto_next_cell(t_rc *rc)
 {
 	if (rc->distance.x < rc->distance.y)
@@ -114,17 +115,33 @@ void	cast_ray(t_var *var, t_xy start, double dir, t_rc *rays)
 	{
 		ray_goto_next_cell(rc);
 		if (var->map.map[(int)rc->current_cell.y]
-			[(int)rc->current_cell.x] == '1')
+						[(int)rc->current_cell.x] == '1' ||
+			var->map.map[(int)rc->current_cell.y]
+						[(int)rc->current_cell.x] == 'D')
 		{
 			end_pos = draw_line_dir(&var->minimap,
-					(t_xy){start.x, start.y}, dir, rc->length, COLOR_CYAN);
+									(t_xy){start.x, start.y},
+									dir,
+									rc->length,
+									COLOR_CYAN);
 			draw_line_dir(&var->minimap,
-				(t_xy){start.x * MMAP_SIZE, start.y * MMAP_SIZE},
-				dir, rc->length * MMAP_SIZE, rgb(200, 200, 200));
-			if (rc->xy == 0)
-				set_ray_textures("SN"[(rc->dir.y) > 0], rc, end_pos, var);
-			if (rc->xy == 1)
-				set_ray_textures("WE"[(rc->dir.x) > 0], rc, end_pos, var);
+							(t_xy){start.x * MMAP_SIZE, start.y * MMAP_SIZE},
+							dir,
+							rc->length * MMAP_SIZE,
+							rgb(200, 200, 200));
+			if (var->map.map[(int)rc->current_cell.y]
+							[(int)rc->current_cell.x] == 'D')
+				set_door_tex(rc, end_pos, var);
+			// else if (var->map.map[(int)rc->current_cell.y]
+			// 				[(int)rc->current_cell.x] == 'O')
+			// 	set_door_close_tex(rc, end_pos, var);
+			else
+			{
+				if (rc->xy == 0)
+					set_ray_textures("SN"[(rc->dir.y) > 0], rc, end_pos, var);
+				if (rc->xy == 1)
+					set_ray_textures("WE"[(rc->dir.x) > 0], rc, end_pos, var);
+			}
 			break ;
 		}
 	}
