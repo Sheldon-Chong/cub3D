@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:29:20 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/30 23:44:02 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/11/02 14:37:39 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	no_walls(t_map *map_det)
 		x = -1;
 		while (map_det->map[y][++x])
 		{
-			if (map_det->map[y][x] == '0' || ft_strchr("NSEWDO",
+			if (map_det->map[y][x] == '0' || ft_strchr("NSEWDd",
 					map_det->map[y][x]))
 			{
 				if (illegal_map(x, y, map_det->map) == 1)

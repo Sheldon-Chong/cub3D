@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 00:28:48 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/31 18:43:20 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/11/02 14:00:51 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,34 @@ void	open_door(t_var *var)
 	dist = 0.3;
 	door = (t_xy){var->map.pos.x, var->map.pos.y};
 	if (var->map.map[(int)door.y][(int)(door.x + dist)] == 'D')
-		var->map.map[(int)door.y][(int)(door.x + dist)] = '0';
+		var->map.map[(int)door.y][(int)(door.x + dist)] = 'd';
 	else if (var->map.map[(int)door.y][(int)(door.x - dist)] == 'D')
-		var->map.map[(int)door.y][(int)(door.x - dist)] = '0';
+		var->map.map[(int)door.y][(int)(door.x - dist)] = 'd';
 	else if (var->map.map[(int)(door.y + dist)][(int)(door.x)] == 'D')
-		var->map.map[(int)(door.y + dist)][(int)(door.x)] = '0';
+		var->map.map[(int)(door.y + dist)][(int)(door.x)] = 'd';
 	else if (var->map.map[(int)(door.y - dist)][(int)(door.x)] == 'D')
-		var->map.map[(int)(door.y - dist)][(int)(door.x)] = '0';
-	// if (var->map.map[(int)door.y][(int)(door.x + dist)] == 'O')
-	// 	var->map.map[(int)door.y][(int)(door.x + dist)] = 'D';
-	// else if (var->map.map[(int)door.y][(int)(door.x - dist)] == 'O')
-	// 	var->map.map[(int)door.y][(int)(door.x - dist)] = 'D';
-	// else if (var->map.map[(int)(door.y + dist)][(int)(door.x)] == 'O')
-	// 	var->map.map[(int)(door.y + dist)][(int)(door.x)] = 'D';
-	// else if (var->map.map[(int)(door.y - dist)][(int)(door.x)] == 'O')
-	// 	var->map.map[(int)(door.y - dist)][(int)(door.x)] = 'D';
+		var->map.map[(int)(door.y - dist)][(int)(door.x)] = 'd';
+	
+}
+
+void	close_door(t_var *var)
+{
+	t_xy	door;
+	double	dist;
+
+	dist = 0.3;
+	if(var->map.map[(int)var->map.pos.y][(int)var->map.pos.x] == 'd')
+		return ;
+	door = (t_xy){var->map.pos.x, var->map.pos.y};
+	if (var->map.map[(int)door.y][(int)(door.x + dist)] == 'd')
+		var->map.map[(int)door.y][(int)(door.x + dist)] = 'D';
+	else if (var->map.map[(int)door.y][(int)(door.x - dist)] == 'd')
+		var->map.map[(int)door.y][(int)(door.x - dist)] = 'D';
+	else if (var->map.map[(int)(door.y + dist)][(int)(door.x)] == 'd')
+		var->map.map[(int)(door.y + dist)][(int)(door.x)] = 'D';
+	else if (var->map.map[(int)(door.y - dist)][(int)(door.x)] == 'd')
+		var->map.map[(int)(door.y - dist)][(int)(door.x)] = 'D';
+	
 }
 
 int	handle_keyrelease(int keycode, t_var *var)
@@ -43,6 +56,8 @@ int	handle_keyrelease(int keycode, t_var *var)
 		exit(0);
 	if (keycode == LINUX_X)
 		open_door(var);
+	if (keycode == 6)
+		close_door(var);
 	return (0);
 }
 

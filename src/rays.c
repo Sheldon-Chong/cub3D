@@ -117,24 +117,26 @@ void	cast_ray(t_var *var, t_xy start, double dir, t_rc *rays)
 		if (var->map.map[(int)rc->current_cell.y]
 						[(int)rc->current_cell.x] == '1' ||
 			var->map.map[(int)rc->current_cell.y]
-						[(int)rc->current_cell.x] == 'D')
+						[(int)rc->current_cell.x] == 'D' || 
+			var->map.map[(int)rc->current_cell.y]
+						[(int)rc->current_cell.x] == 'd')
 		{
+			rc->c = var->map.map[(int)rc->current_cell.y][(int)rc->current_cell.x];
 			end_pos = draw_line_dir(&var->minimap,
 									(t_xy){start.x, start.y},
 									dir,
 									rc->length,
-									COLOR_CYAN);
+									-1);
 			draw_line_dir(&var->minimap,
 							(t_xy){start.x * MMAP_SIZE, start.y * MMAP_SIZE},
 							dir,
 							rc->length * MMAP_SIZE,
 							rgb(200, 200, 200));
 			if (var->map.map[(int)rc->current_cell.y]
-							[(int)rc->current_cell.x] == 'D')
-				set_door_tex(rc, end_pos, var);
-			// else if (var->map.map[(int)rc->current_cell.y]
-			// 				[(int)rc->current_cell.x] == 'O')
-			// 	set_door_close_tex(rc, end_pos, var);
+							[(int)rc->current_cell.x] == 'D' || var->map.map[(int)rc->current_cell.y]
+							[(int)rc->current_cell.x] == 'd')
+				set_door_tex(rc, end_pos, var, var->map.map[(int)rc->current_cell.y]
+							[(int)rc->current_cell.x]);
 			else
 			{
 				if (rc->xy == 0)

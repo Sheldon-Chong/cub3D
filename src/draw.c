@@ -6,7 +6,7 @@
 /*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 17:47:09 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/30 14:30:23 by shechong         ###   ########.fr       */
+/*   Updated: 2023/11/02 14:22:36 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,26 @@ void	render_3d_view(t_var *var, t_rc *rays, int ray_count)
 	{
 		shape_height = (SCREEN_HEIGHT / ((rays[x].length)));
 		y = -1;
-		while (++y < var->h)
+		if(rays[x].c != 'd')
+		{
+			while (++y < var->h)
+			{
+				shape_start = (t_xy){x, ((SCREEN_HEIGHT - shape_height)) / 2
+					+ (shape_height * ((double)y / var->h))};
+				draw_rect(&var->screen, (t_xy){shape_start.x, shape_start.y},
+					(t_xy){1, (shape_height * (1 / (double)var->h))},
+					get_color(rays[x].texture,
+						var->w - rays[x].texture_column - 1, y));
+				if (shape_start.y > SCREEN_HEIGHT || shape_start.x > SCREEN_WIDTH)
+					break ;
+			}
+		}
+		else
 		{
 			shape_start = (t_xy){x, ((SCREEN_HEIGHT - shape_height)) / 2
 				+ (shape_height * ((double)y / var->h))};
 			draw_rect(&var->screen, (t_xy){shape_start.x, shape_start.y},
-				(t_xy){1, (shape_height * (1 / (double)var->h))},
-				get_color(rays[x].texture,
-					var->w - rays[x].texture_column - 1, y));
+				(t_xy){1, shape_height}, rgb(100,100,100));
 			if (shape_start.y > SCREEN_HEIGHT || shape_start.x > SCREEN_WIDTH)
 				break ;
 		}
@@ -56,9 +68,17 @@ void	draw_minimap(t_var *var)
 	{
 		pos.x = -1;
 		while (++pos.x < var->map.width)
+		{
 			if (var->map.map[(int)pos.y][(int)pos.x] == '1')
 				draw_rect(&var->minimap, (t_xy){pos.x * MMAP_SIZE, pos.y
 					* MMAP_SIZE}, (t_xy){MMAP_SIZE, MMAP_SIZE}, rgb(0, 0, 0));
+			if (var->map.map[(int)pos.y][(int)pos.x] == 'D')
+				draw_rect(&var->minimap, (t_xy){pos.x * MMAP_SIZE, pos.y
+					* MMAP_SIZE}, (t_xy){MMAP_SIZE, MMAP_SIZE}, rgb(255, 255, 30));
+			if (var->map.map[(int)pos.y][(int)pos.x] == 'd')
+				draw_rect(&var->minimap, (t_xy){pos.x * MMAP_SIZE, pos.y
+					* MMAP_SIZE}, (t_xy){MMAP_SIZE, MMAP_SIZE}, rgb(0, 255, 0));
+		}
 	}
 	draw_rect(&var->minimap, (t_xy){var->map.pos.x * MMAP_SIZE,
 		var->map.pos.y * MMAP_SIZE}, (t_xy){5, 5}, COLOR_BLACK);
@@ -69,17 +89,10 @@ void	draw_minimap(t_var *var)
 
 void	draw_ui(t_var *var)
 {
-	draw_rect(&var->ui, (t_xy){60, 250}, (t_xy){450, 30}, COLOR_BLACK);
-	draw_rect(&var->ui, (t_xy){60, 250},
-		(t_xy){450 * (7.0 / 10.0), 30}, COLOR_RED);
 	mlx_put_image_to_window(var->screen.mlx,
-		var->screen.win, var->player_pov.img,
-		SCREEN_WIDTH - var->player_pov.width,
-		SCREEN_HEIGHT - var->player_pov.height);
-	mlx_put_image_to_window(var->screen.mlx, var->screen.win,
-		var->ui.img, 0, 0);
-	mlx_put_image_to_window(var->screen.mlx, var->screen.win,
-		var->heart.img, 20, 235);
+		var->screen.win, var->frames[var->frame_num].img,
+		SCREEN_WIDTH - var->player_pov.width + 1100,
+		SCREEN_HEIGHT - var->player_pov.height + 200);
 	mlx_put_image_to_window(var->screen.mlx, var->screen.win,
 		var->minimap.img, 20, 20);
 	return ;
@@ -93,6 +106,13 @@ int	draw_img(void *params)
 	var = (t_var *)params;
 	if ((*(var->sec))++ > 100)
 	{
+		if(var->fire)
+			var->frame_num++;
+		if (var->frame_num > 6)
+		{
+			var->frame_num = 0;
+			var->fire = 0;
+		}
 		draw_rect(&var->screen, (t_xy){0, 0}, (t_xy){SCREEN_WIDTH, SCREEN_HEIGHT
 			/ 2}, var->tex.ceiling);
 		draw_rect(&var->screen, (t_xy){0, SCREEN_HEIGHT / 2},

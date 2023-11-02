@@ -30,8 +30,9 @@ t_xy	draw_line_dir(t_img *img, t_xy start, double direction,
 	t = 0;
 	while (t <= distance)
 	{
-		put_pixel(img, start.x + t * cos(direction),
-			start.y + t * sin(direction), color);
+		if(color > 0)
+			put_pixel(img, start.x + t * cos(direction),
+				start.y + t * sin(direction), color);
 		t += step;
 	}
 	return ((t_xy){start.x + distance * cos(direction), start.y + distance

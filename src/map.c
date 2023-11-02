@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 23:34:49 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/31 18:42:08 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/11/02 14:38:54 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	check_doors(t_map *map_det, t_tex *tex, void *mlx)
 		x = -1;
 		while (map_det->map[y][++x])
 		{
-			if (map_det->map[y][x] == 'D' || map_det->map[y][x] == 'O')
+			if (map_det->map[y][x] == 'D' || map_det->map[y][x] == 'd')
 				doors += 1;
 		}
 	}

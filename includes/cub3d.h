@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:43:46 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/31 18:41:37 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/11/02 14:39:26 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 # define SPACES " \f\v\t\r\n"
-# define VALID_CHAR "NSEW01D\f\v\t\r\n "
+# define VALID_CHAR "NSEW01Dd\f\v\t\r\n "
 # define CURRENT_EXIT_CODE 9
 # define TEXTURE_SIZE 64
 # define MMAP_SIZE 15
@@ -32,8 +32,8 @@
 # define LINUX_Q 12
 # define LINUX_E 14
 # define LINUX_X 7
-# define SCREEN_HEIGHT 1100
-# define SCREEN_WIDTH 1200
+# define SCREEN_HEIGHT 900
+# define SCREEN_WIDTH 1000
 # define CELL_SIZE 40
 # define TEX_HEIGHT 64
 # define TEX_WIDTH 64
@@ -97,6 +97,7 @@ typedef struct s_rc
 	int					texture_column;
 	float				angle;
 	t_img				*texture;
+	char				c;
 }						t_rc;
 
 typedef struct s_map
@@ -115,10 +116,12 @@ typedef struct s_var
 	t_tex				tex;
 	t_img				screen;
 	t_img				minimap;
-	t_img				ui;
 	t_img				heart;
 	t_img				player_pov;
 	t_rc				rc;
+	t_img*				frames;
+	int					fire;
+	int					frame_num;
 	int					*sec;
 	int					max_h;
 	int					max_w;
@@ -185,7 +188,7 @@ t_xy					angle_to_vector(double angle);
 t_xy					op(t_xy xy1, t_xy xy2, char op);
 void					draw_rect(t_img *image, t_xy start, t_xy wh, int color);
 int						get_color(t_img *img, int x, int y);
-void					set_door_tex(t_rc *rc, t_xy end_pos, t_var *var);
+void					set_door_tex(t_rc *rc, t_xy end_pos, t_var *var, char door);
 
 //door.c
 int						handle_keyrelease(int keycode, t_var *var);

@@ -6,7 +6,7 @@
 /*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:53:57 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/10/30 14:23:19 by shechong         ###   ########.fr       */
+/*   Updated: 2023/11/02 13:49:46 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,6 @@ int	init_minimap(t_img *minimap, void *mlx, int w, int h)
 	minimap->img = mlx_new_image(mlx, w, h);
 	minimap->addr = mlx_get_data_addr(minimap->img, &minimap->bits_per_pixel,
 			&minimap->line_length, &minimap->endian);
-	return (0);
-}
-
-int	init_ui(t_img *ui, void *mlx)
-{
-	ui->img = mlx_new_image(mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
-	ui->addr = mlx_get_data_addr(ui->img, &ui->bits_per_pixel,
-			&ui->line_length, &ui->endian);
-	draw_rect (ui, (t_xy){0, 0},
-		(t_xy){SCREEN_WIDTH, SCREEN_HEIGHT}, 0xFFFF0000);
 	return (0);
 }
 
