@@ -149,4 +149,5 @@ void	cast_ray(t_var *var, t_xy start, double dir, t_rc *rays)
 	}
 	rc->length *= cos(deg2rad((double)var->map.angle) - (rc->angle));
 	rays[0] = *rc;
+	free(rc);
 }

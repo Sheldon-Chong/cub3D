@@ -6,15 +6,16 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:40:45 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/09/22 17:43:01 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/11/10 01:54:26 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	error_mes(char *err)
+void	error_mes(char *err, t_var *var)
 {
 	ft_putstr_fd(err, 2);
-	// system("leaks");
+	if (var->map.map)
+		free_frames(var);
 	exit(2);
 }

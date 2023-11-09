@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:53:57 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/11/02 13:49:46 by shechong         ###   ########.fr       */
+/*   Updated: 2023/11/10 01:52:41 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ int	init_var(t_var *var)
 	ft_bzero(&var->rc, sizeof(t_rc));
 	ft_bzero(&var->screen, sizeof(t_img));
 	if (!init_mlx(&var->screen, var->max_h - 1, var->max_w - 1))
-		error_mes("Mlx parsing error!");
+		error_mes("Mlx parsing error!", var);
 	return (0);
 }

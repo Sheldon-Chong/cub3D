@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:43:46 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/11/02 14:39:26 by shechong         ###   ########.fr       */
+/*   Updated: 2023/11/10 01:54:37 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,10 @@ typedef struct s_var
 	t_tex				tex;
 	t_img				screen;
 	t_img				minimap;
-	t_img				heart;
-	t_img				player_pov;
+	t_img*				heart;
+	t_img*				player_pov;
 	t_rc				rc;
-	t_img*				frames;
+	t_img**				frames;
 	int					fire;
 	int					frame_num;
 	int					*sec;
@@ -137,13 +137,13 @@ int						init_var(t_var *var);
 void					rotate(t_var *var, char dir);
 
 // error.c
-void					error_mes(char *err);
+void					error_mes(char *err, t_var *var);
 
 // check.c
 int						check_prefix(char *line);
 void					check_line(char *line, t_var *var,
 							t_map_line **map_lines);
-int						check_order(char *path);
+int						check_order(char *path, t_var *var);
 int						valid_char(t_map *map_det);
 int						no_walls(t_map *map_det);
 
@@ -163,6 +163,8 @@ int						rgb(int r, int g, int b);
 
 // free.c
 void					free_2d(char **arr);
+void					free_textures(t_tex *tex);
+void					free_frames(t_var *var);
 
 // map.c
 void					map_size(t_map_line **map, t_map *map_det);

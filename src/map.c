@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 23:34:49 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/11/02 14:38:54 by shechong         ###   ########.fr       */
+/*   Updated: 2023/11/09 23:14:24 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ void	map_insert(t_map_line **map, t_map *map_det)
 	map_det->map = (char **)malloc(sizeof(char *) * (map_det->height + 1));
 	while (i < map_det->height)
 	{
-		map_det->map[i] = (char *)malloc(sizeof(char) * (map_det->width + 1));
-		map_det->map[i] = line->line;
+		map_det->map[i] = ft_strdup(line->line);
 		line = line->next;
 		i++;
 	}

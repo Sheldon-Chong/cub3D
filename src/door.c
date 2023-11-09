@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 00:28:48 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/11/02 14:00:51 by shechong         ###   ########.fr       */
+/*   Updated: 2023/11/10 01:44:03 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,35 @@ void	close_door(t_var *var)
 	
 }
 
+void	free_frames(t_var *var)
+{
+	int	i;
+
+	i = 0;
+	// while (i < 8)
+	// {
+	// 	free(&(var->frames[i]));
+	// 	i++;
+	// }
+	// free(&(var->frames));
+	// free(&(var->player_pov));
+	while (i < var->map.height - 1)
+	{
+		free(var->map.map[i]);
+		i++;
+	}
+	// free(var->map.map);
+	// free_textures(&var->tex);
+	// free(&var->heart);
+}
+
 int	handle_keyrelease(int keycode, t_var *var)
 {
 	if (keycode == 53)
+	{
+		free_frames(var);
 		exit(0);
+	}
 	if (keycode == LINUX_X)
 		open_door(var);
 	if (keycode == 6)

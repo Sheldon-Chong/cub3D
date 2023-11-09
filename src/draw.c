@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 17:47:09 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/11/02 14:22:36 by shechong         ###   ########.fr       */
+/*   Updated: 2023/11/10 00:04:57 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,9 @@ void	draw_minimap(t_var *var)
 void	draw_ui(t_var *var)
 {
 	mlx_put_image_to_window(var->screen.mlx,
-		var->screen.win, var->frames[var->frame_num].img,
-		SCREEN_WIDTH - var->player_pov.width + 1100,
-		SCREEN_HEIGHT - var->player_pov.height + 200);
+		var->screen.win, var->frames[var->frame_num]->img,
+		SCREEN_WIDTH - var->player_pov->width + 1100,
+		SCREEN_HEIGHT - var->player_pov->height + 200);
 	mlx_put_image_to_window(var->screen.mlx, var->screen.win,
 		var->minimap.img, 20, 20);
 	return ;
@@ -102,7 +102,9 @@ int	draw_img(void *params)
 {
 	t_var		*var;
 	t_rc		*screen;
+	int			i;
 
+	i = -1;
 	var = (t_var *)params;
 	if ((*(var->sec))++ > 100)
 	{

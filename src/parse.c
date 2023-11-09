@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:53:38 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/11/02 14:38:45 by shechong         ###   ########.fr       */
+/*   Updated: 2023/11/10 01:53:45 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	parse_tex(char *line, t_var *var)
 	char	dir;
 
 	if (!check_prefix(line))
-		error_mes("Wrong prefix!");
+		error_mes("Wrong prefix!", var);
 	dir = line[0];
 	line = ft_strchr(line, '.');
 	if (dir == 'N' && !var->tex.n)
@@ -30,7 +30,7 @@ void	parse_tex(char *line, t_var *var)
 		var->tex.e = new_img(var->screen.mlx, line);
 	if ((dir == 'N' && !var->tex.n) || (dir == 'S' && !var->tex.s)
 		|| (dir == 'W' && !var->tex.w) || (dir == 'E' && !var->tex.e))
-		error_mes("File not found!");
+		error_mes("File not found!", var);
 }
 
 void	parse_color(char *line, t_var *var)
@@ -48,7 +48,7 @@ void	parse_color(char *line, t_var *var)
 	{
 		if (ft_isnum(char_rgb[i]) || ft_atoi(char_rgb[i]) < 0
 			|| ft_atoi(char_rgb[i]) > 255)
-			error_mes("Color Error!");
+			error_mes("Color Error!", var);
 		test[i] = ft_atoi(char_rgb[i]);
 		i++;
 	}
@@ -69,6 +69,16 @@ void	parse_map(char *line, t_map_line **map_lines)
 	map_line_add_back(map_lines, road);
 }
 
+void	free_map_line(t_map_line *map)
+{
+	while (map)
+	{
+		free(map->line);
+		free(map);
+		map = map->next;
+	}
+}
+
 int	parse_file(char *path, t_var *var)
 {
 	char		*line;
@@ -76,8 +86,8 @@ int	parse_file(char *path, t_var *var)
 	t_map_line	*map;
 
 	map = NULL;
-	if (check_order(path) != 0)
-		error_mes("Unable to open file!");
+	if (check_order(path, var) != 0)
+		error_mes("Unable to open file!", var);
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return (1);
@@ -90,8 +100,12 @@ int	parse_file(char *path, t_var *var)
 	}
 	map_size(&map, &var->map);
 	map_insert(&map, &var->map);
-	if (check_map(&var->map, &var->tex, var->screen.mlx))
+	if (check_map(&var->map, &var->tex, var->screen.mlx) == 1)
+	{
+		free_map_line(map);
 		return (1);
+	}
+	free_map_line(map);
 	close(fd);
 	return (0);
 }

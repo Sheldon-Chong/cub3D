@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:29:20 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/11/02 14:37:39 by shechong         ###   ########.fr       */
+/*   Updated: 2023/11/10 01:54:01 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,56 @@
 
 int	check_prefix(char *line)
 {
+	char	*tmp;
+
+	tmp = NULL;
 	if (ft_strncmp(line, "NO", 2) == 0 || ft_strncmp(line, "SO", 2) == 0
 		|| ft_strncmp(line, "WE", 2) == 0 || ft_strncmp(line, "EA", 2) == 0)
 	{
-		line = ft_strtrim(line + 2, SPACES);
-		if (ft_strncmp(line, "./", 2) == 0)
+		tmp = ft_strtrim(line + 2, SPACES);
+		if (ft_strncmp(tmp, "./", 2) == 0)
+		{
+			free(tmp);
 			return (1);
+		}
 	}
+	free(tmp);
 	return (0);
 }
 
 void	check_line(char *line, t_var *var, t_map_line **map_lines)
 {
 	char	*tmp;
+	char	*tmp2;
 
 	tmp = line;
-	line = ft_strtrim(line, SPACES);
-	if (line[0] == 'N' || line[0] == 'S' || line[0] == 'E' || line[0] == 'W')
-		parse_tex(line, var);
-	else if ((ft_strncmp(line, "F ", 2) == 0 || ft_strncmp(line, "C ", 2) == 0))
-		parse_color(line, var);
-	else if (line[0] == '1')
+	tmp2 = ft_strtrim(line, SPACES);
+	if (tmp2[0] == 'N' || tmp2[0] == 'S' || tmp2[0] == 'E' || tmp2[0] == 'W')
+	{
+		parse_tex(tmp2, var);
+		free(tmp2);
+	}
+	else if ((ft_strncmp(tmp2, "F ", 2) == 0 || ft_strncmp(tmp2, "C ", 2) == 0))
+	{
+		parse_color(tmp2, var);
+		free(tmp2);
+	}
+	else if (tmp2[0] == '1')
+	{
 		parse_map(tmp, map_lines);
+		free(tmp2);
+	}
 	else
+	{
+		free(tmp2);
 		return ;
+	}
 }
 
-int	check_order(char *path)
+int	check_order(char *path, t_var *var)
 {
 	char	*line;
+	char	*tmp;
 	char	first[7];
 	int		i;
 	int		fd;
@@ -54,13 +75,15 @@ int	check_order(char *path)
 	line = get_next_line(fd);
 	while (line)
 	{
-		line = ft_strtrim(line, SPACES);
-		if (line[0] && ++i < 7)
-			first[i] = line[0];
+		tmp = ft_strtrim(line, SPACES);
+		if (tmp[0] && ++i < 7)
+			first[i] = tmp[0];
+		free(tmp);
+		free(line);
 		line = get_next_line(fd);
 	}
 	if (ft_strncmp(first, "NSWEFC1", 7))
-		error_mes("Wrong order!");
+		error_mes("Wrong order!", var);
 	return (0);
 }
 

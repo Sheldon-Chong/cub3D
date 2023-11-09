@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:44:40 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/11/02 14:45:52 by shechong         ###   ########.fr       */
+/*   Updated: 2023/11/10 01:52:31 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,31 +84,33 @@ int	main(int argc, char **argv)
 	t_var	var;
 
 	if (argc != 2)
-		error_mes("Invalid Number of Arguments.\n");
+		error_mes("Invalid Number of Arguments.\n", 0);
 	if (init_var(&var) || parse_file(argv[1], &var)
 		|| init_minimap(&var.minimap, var.screen.mlx, var.map.width * MMAP_SIZE,
 			var.map.height * MMAP_SIZE))
-		error_mes("Error: Parsing error");
+		error_mes("Error: Parsing error", &var);
 	rotate(&var, var.map.dir);
 	var.map.pos.y += 0.2;
-	var.frames = malloc(26 * sizeof(t_img));
+	var.frames = malloc(8 * sizeof(t_img *));
 
-	var.frames[0] = *(new_img(var.screen.mlx, "shotgun/1.xpm"));
-	var.frames[1] = *(new_img(var.screen.mlx, "shotgun/2.xpm"));
-	var.frames[2] = *(new_img(var.screen.mlx, "shotgun/3.xpm"));
-	var.frames[3] = *(new_img(var.screen.mlx, "shotgun/4.xpm"));
-	var.frames[4] = *(new_img(var.screen.mlx, "shotgun/5.xpm"));
-	var.frames[5] = *(new_img(var.screen.mlx, "shotgun/6.xpm"));
-	var.frames[6] = *(new_img(var.screen.mlx, "shotgun/7.xpm"));
-	var.frames[7] = *(new_img(var.screen.mlx, "shotgun/8.xpm"));
+	var.frames[0] = (new_img(var.screen.mlx, "shotgun/1.xpm"));
+	var.frames[1] = (new_img(var.screen.mlx, "shotgun/2.xpm"));
+	var.frames[2] = (new_img(var.screen.mlx, "shotgun/3.xpm"));
+	var.frames[3] = (new_img(var.screen.mlx, "shotgun/4.xpm"));
+	var.frames[4] = (new_img(var.screen.mlx, "shotgun/5.xpm"));
+	var.frames[5] = (new_img(var.screen.mlx, "shotgun/6.xpm"));
+	var.frames[6] = (new_img(var.screen.mlx, "shotgun/7.xpm"));
+	var.frames[7] = (new_img(var.screen.mlx, "shotgun/8.xpm"));
 	
 	var.player_pov = var.frames[0];
-	var.heart = *(new_img(var.screen.mlx, "cross.xpm"));
+	var.heart = (new_img(var.screen.mlx, "cross.xpm"));
 	mlx_hook(var.screen.win, 2, 1L << 0, handle_keypress, &var);
-	mlx_hook(var.screen.win, 3, 0, handle_keyrelease, &var);
 	mlx_hook(var.screen.win, 6, 0, mouse_move, &var);
 	mlx_mouse_hook(var.screen.win, test, &var);
 	mlx_loop_hook(var.screen.mlx, draw_img, &var);
+	mlx_hook(var.screen.win, 3, 0, handle_keyrelease, &var);
 	mlx_loop(var.screen.mlx);
-	return (0);
+
+	// if use return will cause root leak (potentially from mlx)
+	// exit(0);
 }
