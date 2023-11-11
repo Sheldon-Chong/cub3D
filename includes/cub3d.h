@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:43:46 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/11/10 01:54:37 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/11/12 01:04:24 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@
 # define LINUX_Q 12
 # define LINUX_E 14
 # define LINUX_X 7
-# define SCREEN_HEIGHT 900
-# define SCREEN_WIDTH 1000
+# define S_HEIGHT 900
+# define S_WIDTH 1000
 # define CELL_SIZE 40
 # define TEX_HEIGHT 64
 # define TEX_WIDTH 64
@@ -87,7 +87,7 @@ typedef struct s_rc
 {
 	t_xy				dir;
 	t_xy				start;
-	t_xy				current_cell;
+	t_xy				curr_cell;
 	t_xy				cell_step;
 	t_xy				unit_length;
 	t_xy				distance;
@@ -116,10 +116,10 @@ typedef struct s_var
 	t_tex				tex;
 	t_img				screen;
 	t_img				minimap;
-	t_img*				heart;
-	t_img*				player_pov;
+	t_img				*heart;
+	t_img				*player_pov;
 	t_rc				rc;
-	t_img**				frames;
+	t_img				**frames;
 	int					fire;
 	int					frame_num;
 	int					*sec;
@@ -154,6 +154,9 @@ int						parse_file(char *path, t_var *var);
 void					parse_tex(char *line, t_var *var);
 void					parse_color(char *line, t_var *var);
 void					parse_map(char *line, t_map_line **map_lines);
+
+// frames.c
+void					insert_frames(t_var *var);
 
 // utils.c
 int						ft_isnum(char *n);
@@ -190,11 +193,24 @@ t_xy					angle_to_vector(double angle);
 t_xy					op(t_xy xy1, t_xy xy2, char op);
 void					draw_rect(t_img *image, t_xy start, t_xy wh, int color);
 int						get_color(t_img *img, int x, int y);
-void					set_door_tex(t_rc *rc, t_xy end_pos, t_var *var, char door);
+void					set_door_tex(t_rc *rc, t_xy end_pos, t_var *var,
+							char door);
+
+// utils3.c
+void					fire(t_var *var);
+int						detect_walls(t_var *var, t_rc *rc);
+int						detect_doors(t_var *var, t_rc *rc);
+void					set_texture(t_rc *rc, t_xy end_pos, t_var *var);
 
 //door.c
 int						handle_keyrelease(int keycode, t_var *var);
 // void					set_door_close_tex(t_rc *rc, t_xy end_pos, t_var *var);
+
+// draw2.c
+void					draw_rectangle(t_var *var, double pos_x, double pos_y);
+t_xy					get_start(int x, double height, int y, t_var *var);
+void					draw_rect2(t_var *var, t_xy start, t_rc ray, int y);
+void					draw_rect3(t_var *var, double height, int x, int y);
 
 void					decide_direction(t_rc *rc);
 int						ray_goto_next_cell(t_rc *rc);
@@ -205,8 +221,8 @@ void					cast_ray(t_var *var, t_xy start, double dir,
 							t_rc *rays);
 t_rc					*cast_rays(t_var *var, int ray_count);
 int						draw_img(void *params);
-t_xy					draw_line_dir(t_img *img, t_xy start, double direction,
-							double distance, int color);
+t_xy					draw_line(t_img *img, t_xy start, double direction,
+							double distance);
 void					place_pixel(t_img *image, int x, int y, int color);
 t_img					*new_img(void *mlx, char *image);
 int						init_minimap(t_img *minimap, void *mlx, int w, int h);

@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:29:20 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/11/10 01:54:01 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/11/10 16:26:46 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,9 +118,9 @@ int	valid_char(t_map *map_det)
 
 int	no_walls(t_map *map_det)
 {
-	int illegal;
-	int x;
-	int y;
+	int	illegal;
+	int	x;
+	int	y;
 
 	illegal = 0;
 	y = -1;

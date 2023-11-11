@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 18:19:33 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/11/07 17:23:46 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/11/11 23:49:11 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,3 @@ int	illegal_map(int x, int y, char **map)
 	else
 		return (0);
 }
-
-

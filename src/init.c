@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 18:53:57 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/11/10 01:52:41 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/11/10 18:17:23 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ int	init_var(t_var *var)
 {
 	int	sec;
 
-	var->max_h = SCREEN_HEIGHT;
-	var->max_w = SCREEN_WIDTH;
+	var->max_h = S_HEIGHT;
+	var->max_w = S_WIDTH;
 	var->h = TEX_HEIGHT;
 	var->w = TEX_WIDTH;
 	sec = 0;

@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:53:38 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/11/10 01:53:45 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/11/10 16:32:00 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,9 @@ int	parse_file(char *path, t_var *var)
 	}
 	map_size(&map, &var->map);
 	map_insert(&map, &var->map);
-	if (check_map(&var->map, &var->tex, var->screen.mlx) == 1)
-	{
-		free_map_line(map);
-		return (1);
-	}
 	free_map_line(map);
+	if (check_map(&var->map, &var->tex, var->screen.mlx) == 1)
+		return (1);
 	close(fd);
 	return (0);
 }

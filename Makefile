@@ -5,14 +5,15 @@ OBJS_DIR	:= ./obj
 
 SRCS		:=	main.c init.c parse.c check.c \
 				utils.c free.c map.c error.c \
-				 draw.c utils2.c\
+				frames.c draw.c utils2.c utils3.c \
 				rays.c shapes.c mlx.c door.c \
+				draw2.c \
 				
 OBJS		:= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
 CC			:= gcc  -g3 -Wall -Werror -Wextra
 
-FLAGS		:= -fsanitize=address
+# FLAGS		:= -fsanitize=address
 MFLAGS 		:= -framework OpenGL -framework AppKit
 
 # -L "folder" to looks for library in the folder

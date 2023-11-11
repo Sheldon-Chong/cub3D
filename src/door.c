@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 00:28:48 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/11/10 01:44:03 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/11/10 18:40:31 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	open_door(t_var *var)
 		var->map.map[(int)(door.y + dist)][(int)(door.x)] = 'd';
 	else if (var->map.map[(int)(door.y - dist)][(int)(door.x)] == 'D')
 		var->map.map[(int)(door.y - dist)][(int)(door.x)] = 'd';
-	
 }
 
 void	close_door(t_var *var)
@@ -36,7 +35,7 @@ void	close_door(t_var *var)
 	double	dist;
 
 	dist = 0.3;
-	if(var->map.map[(int)var->map.pos.y][(int)var->map.pos.x] == 'd')
+	if (var->map.map[(int)var->map.pos.y][(int)var->map.pos.x] == 'd')
 		return ;
 	door = (t_xy){var->map.pos.x, var->map.pos.y};
 	if (var->map.map[(int)door.y][(int)(door.x + dist)] == 'd')
@@ -47,7 +46,6 @@ void	close_door(t_var *var)
 		var->map.map[(int)(door.y + dist)][(int)(door.x)] = 'D';
 	else if (var->map.map[(int)(door.y - dist)][(int)(door.x)] == 'd')
 		var->map.map[(int)(door.y - dist)][(int)(door.x)] = 'D';
-	
 }
 
 void	free_frames(t_var *var)
@@ -55,21 +53,11 @@ void	free_frames(t_var *var)
 	int	i;
 
 	i = 0;
-	// while (i < 8)
-	// {
-	// 	free(&(var->frames[i]));
-	// 	i++;
-	// }
-	// free(&(var->frames));
-	// free(&(var->player_pov));
 	while (i < var->map.height - 1)
 	{
 		free(var->map.map[i]);
 		i++;
 	}
-	// free(var->map.map);
-	// free_textures(&var->tex);
-	// free(&var->heart);
 }
 
 int	handle_keyrelease(int keycode, t_var *var)
@@ -93,12 +81,12 @@ int	handle_keyrelease(int keycode, t_var *var)
 // 	dif = 0;
 // 	if (rc->xy == 0)
 // 	{
-// 		dif = end_pos.x - rc->current_cell.x;
+// 		dif = end_pos.x - rc->curr_cell.x;
 // 		rc->texture = var->tex.door_open;
 // 	}
 // 	else if (rc->xy == 1)
 // 	{
-// 		dif = end_pos.y - rc->current_cell.y;
+// 		dif = end_pos.y - rc->curr_cell.y;
 // 		rc->texture = var->tex.door_open;
 // 	}
 // 	rc->texture_column = (int)(dif * var->w);
