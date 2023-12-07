@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:44:40 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/11/12 00:33:52 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/12/07 12:56:56 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ int	handle_keypress(int keycode, t_var *var)
 	if (keycode == LINUX_D)
 		move_player(var, op(angle_to_vector(deg2rad(var->map.angle + 90)),
 				(t_xy){amount, amount}, '*'));
-	if (keycode == LINUX_E)
+	if (keycode == 124)
 		var->map.angle += 5;
-	if (keycode == LINUX_Q)
+	if (keycode == 123)
 		var->map.angle -= 5;
 	return (0);
 }
@@ -70,13 +70,22 @@ int	mouse_move(int x, int y, t_var *var)
 	return (0);
 }
 
-int	test(int keycode, int x, int y, t_var *var)
+int	shoot(int keycode, int x, int y, t_var *var)
 {
 	(void)x;
 	(void)y;
 	if (keycode == 1)
 		var->fire = 1;
 	return (1);
+}
+
+#define ON_DESTROY 17
+
+int	exit_program(t_var *var)
+{
+	free_frames(var);
+	exit(0);
+	return 1;
 }
 
 int	main(int argc, char **argv)
@@ -94,11 +103,9 @@ int	main(int argc, char **argv)
 	insert_frames(&var);
 	mlx_hook(var.screen.win, 2, 1L << 0, handle_keypress, &var);
 	mlx_hook(var.screen.win, 6, 0, mouse_move, &var);
-	mlx_mouse_hook(var.screen.win, test, &var);
-	mlx_loop_hook(var.screen.mlx, draw_img, &var);
 	mlx_hook(var.screen.win, 3, 0, handle_keyrelease, &var);
+	mlx_hook(var.screen.win, 17, 1L << 17, exit_program, &var);
+	mlx_mouse_hook(var.screen.win, shoot, &var);
+	mlx_loop_hook(var.screen.mlx, draw_img, &var);
 	mlx_loop(var.screen.mlx);
 }
-
-// if use return will cause root leak (potentially from mlx)
-// exit(0);

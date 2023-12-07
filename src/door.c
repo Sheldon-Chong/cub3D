@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 00:28:48 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/11/10 18:40:31 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/12/07 12:29:25 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	handle_keyrelease(int keycode, t_var *var)
 	if (keycode == 53)
 	{
 		free_frames(var);
+		mlx_destroy_window(var->screen.mlx, var->screen.win);
 		exit(0);
 	}
 	if (keycode == LINUX_X)
