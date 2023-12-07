@@ -1,4 +1,4 @@
-NAME		:= cub3d
+NAME		:= cub3D
 
 SRCS_DIR	:= ./src
 OBJS_DIR	:= ./obj
