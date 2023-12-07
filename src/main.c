@@ -6,7 +6,7 @@
 /*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:44:40 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/12/07 12:56:56 by shechong         ###   ########.fr       */
+/*   Updated: 2023/12/07 13:03:33 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,6 @@ int	shoot(int keycode, int x, int y, t_var *var)
 	if (keycode == 1)
 		var->fire = 1;
 	return (1);
-}
-
-#define ON_DESTROY 17
-
-int	exit_program(t_var *var)
-{
-	free_frames(var);
-	exit(0);
-	return 1;
 }
 
 int	main(int argc, char **argv)

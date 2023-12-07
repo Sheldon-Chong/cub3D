@@ -1,6 +1,6 @@
-NO ./texture/crate.xpm
-SO ./texture/crate.xpm
-WE ./texture/crate.xpm
+NO ./texture/glass.xpm
+SO ./texture/hallway.xpm
+WE ./texture/mainhall.xpm
 EA ./texture/crate.xpm
 
 F 174,198,207

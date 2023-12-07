@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:43:46 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/11/12 01:04:24 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/12/07 13:03:31 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define LINUX_Q 12
 # define LINUX_E 14
 # define LINUX_X 7
+# define ON_DESTROY 17
 # define S_HEIGHT 900
 # define S_WIDTH 1000
 # define CELL_SIZE 40
@@ -138,6 +139,7 @@ void					rotate(t_var *var, char dir);
 
 // error.c
 void					error_mes(char *err, t_var *var);
+int						exit_program(t_var *var);
 
 // check.c
 int						check_prefix(char *line);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
+/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:40:45 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/11/10 01:54:26 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/12/07 13:03:42 by shechong         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,4 +18,11 @@ void	error_mes(char *err, t_var *var)
 	if (var->map.map)
 		free_frames(var);
 	exit(2);
+}
+
+int	exit_program(t_var *var)
+{
+	free_frames(var);
+	exit(0);
+	return (1);
 }
