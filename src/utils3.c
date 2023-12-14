@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:03:24 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/11/12 00:36:16 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/12/07 15:35:06 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,14 @@ void	set_texture(t_rc *rc, t_xy end_pos, t_var *var)
 		if (rc->xy == 1)
 			set_ray_textures("WE"[(rc->dir.x) > 0], rc, end_pos, var);
 	}
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	size_t	i;
+
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] && s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

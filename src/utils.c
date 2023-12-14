@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 18:19:33 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/11/11 23:49:11 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/12/07 15:39:53 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	map_line_add_back(t_map_line **map, t_map_line *new)
 
 int	illegal_map(int x, int y, char **map)
 {
+	if ((x - 1) < 0 || (y - 1) < 0)
+		return (1);
 	if (!map[y][x + 1] || (!ft_strchr("NSEWD10d", map[y][x + 1])))
 		return (1);
 	else if (!map[y][x - 1] || (!ft_strchr("NSEWD10d", map[y][x - 1])))

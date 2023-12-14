@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:53:38 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/11/10 16:32:00 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:25:02 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	parse_color(char *line, t_var *var)
 	dir = line[0];
 	line = ft_strchr(line, ' ') + 1;
 	char_rgb = ft_split(line, ',');
-	while (char_rgb[i])
+	while (char_rgb[i] && i < 3)
 	{
 		if (ft_isnum(char_rgb[i]) || ft_atoi(char_rgb[i]) < 0
 			|| ft_atoi(char_rgb[i]) > 255)
@@ -52,6 +52,8 @@ void	parse_color(char *line, t_var *var)
 		test[i] = ft_atoi(char_rgb[i]);
 		i++;
 	}
+	if (i != 3)
+		error_mes("Error: Please insert colors for RGB\n", var);
 	if (dir == 'F')
 		var->tex.floor = rgb(test[0], test[1], test[2]);
 	if (dir == 'C')
@@ -86,7 +88,8 @@ int	parse_file(char *path, t_var *var)
 	t_map_line	*map;
 
 	map = NULL;
-	if (check_order(path, var) != 0)
+	if (check_order(path, var) != 0
+		|| ft_strcmp(path + ft_strlen(path) - 4, ".cub") != 0)
 		error_mes("Unable to open file!", var);
 	fd = open(path, O_RDONLY);
 	if (fd < 0)

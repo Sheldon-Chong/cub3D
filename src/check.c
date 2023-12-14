@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:29:20 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/11/10 16:26:46 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/12/07 19:25:20 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,8 @@ int	valid_char(t_map *map_det)
 			else if (ft_strchr("NSEW", map_det->map[j][i]))
 			{
 				map_det->dir = map_det->map[j][i];
-				map_det->pos.x = i;
-				map_det->pos.y = j;
+				map_det->pos.x = i + 0.5;
+				map_det->pos.y = j + 0.5;
 				count++;
 			}
 		}

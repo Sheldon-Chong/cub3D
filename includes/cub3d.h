@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:43:46 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/12/07 13:03:31 by shechong         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:18:37 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 # define SPACES " \f\v\t\r\n"
+# define SPACES2 " \f\v\t\r"
 # define VALID_CHAR "NSEW01Dd\f\v\t\r\n "
 # define CURRENT_EXIT_CODE 9
 # define TEXTURE_SIZE 64
@@ -140,6 +141,7 @@ void					rotate(t_var *var, char dir);
 // error.c
 void					error_mes(char *err, t_var *var);
 int						exit_program(t_var *var);
+void					error_mes_argc(char *err);
 
 // check.c
 int						check_prefix(char *line);
@@ -203,6 +205,7 @@ void					fire(t_var *var);
 int						detect_walls(t_var *var, t_rc *rc);
 int						detect_doors(t_var *var, t_rc *rc);
 void					set_texture(t_rc *rc, t_xy end_pos, t_var *var);
+int						ft_strcmp(char *s1, char *s2);
 
 //door.c
 int						handle_keyrelease(int keycode, t_var *var);

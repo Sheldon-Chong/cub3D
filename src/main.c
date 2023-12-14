@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:44:40 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/12/07 13:03:33 by shechong         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:18:52 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,13 @@ int	main(int argc, char **argv)
 	t_var	var;
 
 	if (argc != 2)
-		error_mes("Invalid Number of Arguments.\n", 0);
+		error_mes_argc("Invalid Number of Arguments.\n");
 	if (init_var(&var) || parse_file(argv[1], &var)
 		|| init_minimap(&var.minimap, var.screen.mlx, var.map.width * MMAP_SIZE,
 			var.map.height * MMAP_SIZE))
 		error_mes("Error: Parsing error", &var);
 	rotate(&var, var.map.dir);
-	var.map.pos.y += 0.2;
+	var.map.angle += 90;
 	insert_frames(&var);
 	mlx_hook(var.screen.win, 2, 1L << 0, handle_keypress, &var);
 	mlx_hook(var.screen.win, 6, 0, mouse_move, &var);
