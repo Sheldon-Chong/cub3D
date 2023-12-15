@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/19 18:49:59 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/12/16 01:45:29 by nwai-kea         ###   ########.fr       */
+/*   Created: 2023/12/16 00:07:49 by nwai-kea          #+#    #+#             */
+/*   Updated: 2023/12/16 00:23:19 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	free_2d(char **arr)
+int	check_tex_and_color(t_var *var)
 {
-	int	i;
-
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
+	if (!(var->tex.n && var->tex.s && var->tex.s && var->tex.s))
+		return (0);
+	if (!(var->tex.floor && var->tex.ceiling))
+		return (0);
+	return (1);
 }

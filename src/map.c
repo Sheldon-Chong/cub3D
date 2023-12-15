@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 23:34:49 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/12/07 15:42:25 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/12/16 01:49:08 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	map_size(t_map_line **map, t_map *map_det)
 	{
 		if ((int)(ft_strlen(line->line) - 1) > map_det->width)
 			map_det->width = ft_strlen(line->line);
-		map_det->height++;
+		if (ft_strlen(line->line) != 1)
+			map_det->height++;
 		line = line->next;
 	}
 	map_det->width -= 1;
@@ -39,9 +40,14 @@ void	map_insert(t_map_line **map, t_map *map_det)
 	map_det->map = (char **)malloc(sizeof(char *) * (map_det->height + 1));
 	while (i < map_det->height)
 	{
-		map_det->map[i] = ft_strdup(line->line);
+		if (ft_strlen(line->line) > 1)
+		{
+			map_det->map[i] = ft_strdup(line->line);
+			i++;
+		}
+		else if (ft_strlen(line->line) == 1 && ft_strlen(line->next->line) != 1 && i != 0)
+			error_mes_argc("Error: Invalid map, please check spacing\n");
 		line = line->next;
-		i++;
 	}
 	map_det->map[i] = NULL;
 }

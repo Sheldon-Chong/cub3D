@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:43:46 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/12/07 16:18:37 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/12/16 01:48:23 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ void					error_mes_argc(char *err);
 
 // check.c
 int						check_prefix(char *line);
+int						check_tex_and_color(t_var *var);
 void					check_line(char *line, t_var *var,
 							t_map_line **map_lines);
 int						check_order(char *path, t_var *var);

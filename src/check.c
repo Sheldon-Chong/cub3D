@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 03:29:20 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/12/07 19:25:20 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/12/16 00:06:02 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	check_line(char *line, t_var *var, t_map_line **map_lines)
 		parse_color(tmp2, var);
 		free(tmp2);
 	}
-	else if (tmp2[0] == '1')
+	else if ((tmp2[0] == '1' || tmp2[0] == '\0') && (check_tex_and_color(var)))
 	{
 		parse_map(tmp, map_lines);
 		free(tmp2);
