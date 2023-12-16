@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:53:38 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/12/16 01:48:18 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/12/16 13:32:23 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	parse_file(char *path, t_var *var)
 	map = NULL;
 	if (check_order(path, var) != 0
 		|| ft_strcmp(path + ft_strlen(path) - 4, ".cub") != 0)
-		error_mes("Unable to open file!", var);
+		error_mes("Error: Unable to open file!", var);
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return (1);

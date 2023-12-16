@@ -11,9 +11,9 @@ SRCS		:=	main.c init.c parse.c check.c \
 				
 OBJS		:= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
-CC			:= gcc  -g3 -Wall -Werror -Wextra
+CC			:= gcc -Wall -Werror -Wextra
 
-FLAGS		:= -fsanitize=address
+# FLAGS		:= -fsanitize=address
 MFLAGS 		:= -framework OpenGL -framework AppKit
 
 # -L "folder" to looks for library in the folder

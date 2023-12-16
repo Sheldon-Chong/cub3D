@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 23:34:49 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/12/16 01:49:08 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/12/16 13:34:51 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,9 @@ void	map_insert(t_map_line **map, t_map *map_det)
 			map_det->map[i] = ft_strdup(line->line);
 			i++;
 		}
-		else if (ft_strlen(line->line) == 1 && ft_strlen(line->next->line) != 1 && i != 0)
-			error_mes_argc("Error: Invalid map, please check spacing\n");
+		else if (ft_strlen(line->line) == 1
+			&& ft_strlen(line->next->line) != 1 && i != 0)
+			error_mes_argc("Error: Invalid map (Spacing)\n");
 		line = line->next;
 	}
 	map_det->map[i] = NULL;
