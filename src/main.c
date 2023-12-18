@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:44:40 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/12/07 16:18:52 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/12/18 17:05:47 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	main(int argc, char **argv)
 			var.map.height * MMAP_SIZE))
 		error_mes("Error: Parsing error", &var);
 	rotate(&var, var.map.dir);
-	var.map.angle += 90;
+	var.map.angle -= 90;
 	insert_frames(&var);
 	mlx_hook(var.screen.win, 2, 1L << 0, handle_keypress, &var);
 	mlx_hook(var.screen.win, 6, 0, mouse_move, &var);
