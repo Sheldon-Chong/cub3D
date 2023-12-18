@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:53:38 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/12/18 18:31:15 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/12/18 19:43:46 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	parse_tex(char *line, t_var *var)
 	char	dir;
 
 	if (!check_prefix(line))
-		error_mes("Wrong prefix!", var);
+		error_mes("Error: Wrong prefix!", var);
 	dir = line[0];
 	line = ft_strchr(line, '.');
 	if (dir == 'N' && !var->tex.n)
@@ -30,7 +30,7 @@ void	parse_tex(char *line, t_var *var)
 		var->tex.e = new_img(var->screen.mlx, line);
 	if ((dir == 'N' && !var->tex.n) || (dir == 'S' && !var->tex.s)
 		|| (dir == 'W' && !var->tex.w) || (dir == 'E' && !var->tex.e))
-		error_mes("File not found!", var);
+		error_mes("Error: File not found!", var);
 }
 
 void	parse_color(char *line, t_var *var)
