@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 23:34:49 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/12/16 13:34:51 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/12/18 16:50:59 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	check_doors(t_map *map_det, t_tex *tex, void *mlx)
 		tex->door = new_img(mlx, "./texture/door.xpm");
 		tex->door_open = new_img(mlx, "./texture/door_open.xpm");
 	}
-	if (!tex->door || !tex->door_open)
+	if (doors > 0 && (!tex->door || !tex->door_open))
 		return (1);
 	return (0);
 }
