@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 17:44:40 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/12/18 17:05:47 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/12/18 19:39:25 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	main(int argc, char **argv)
 	t_var	var;
 
 	if (argc != 2)
-		error_mes_argc("Invalid Number of Arguments.\n");
+		error_mes_argc("Error: Invalid Number of Arguments.\n");
 	if (init_var(&var) || parse_file(argv[1], &var)
 		|| init_minimap(&var.minimap, var.screen.mlx, var.map.width * MMAP_SIZE,
 			var.map.height * MMAP_SIZE))

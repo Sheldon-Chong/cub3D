@@ -54,7 +54,7 @@ $(NAME)	: $(OBJS)
 # "gcc -o 'file' " use as a naming feature / place the output result to 'file'
 $(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c
 	@mkdir -p $(OBJS_DIR)
-	$(CC) $(INCLUDES) -c $< -o $@
+	$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@
 
 # "echo -e" to allow backslash escapes \ 
 clean :

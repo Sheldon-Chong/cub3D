@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 18:19:33 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/12/07 15:39:53 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/12/18 19:37:51 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,11 @@ int	illegal_map(int x, int y, char **map)
 		return (1);
 	else if (!map[y][x - 1] || (!ft_strchr("NSEWD10d", map[y][x - 1])))
 		return (1);
-	else if (!map[y + 1][x] || (!ft_strchr("NSEWD10d", map[y + 1][x])))
+	else if ((int)ft_strlen(map[y + 1]) < x
+		|| (!ft_strchr("NSEWD10d", map[y + 1][x])))
 		return (1);
-	else if (!map[y - 1][x] || (!ft_strchr("NSEWD10d", map[y - 1][x])))
+	else if ((int)ft_strlen(map[y - 1]) < x
+		|| (!ft_strchr("NSEWD10d", map[y - 1][x])))
 		return (1);
 	else
 		return (0);

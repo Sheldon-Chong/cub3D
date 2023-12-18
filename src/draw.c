@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shechong <shechong@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/25 17:47:09 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/12/07 11:07:57 by shechong         ###   ########.fr       */
+/*   Updated: 2023/12/18 18:53:04 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	draw_minimap(t_var *var)
 	while (++pos.y < var->map.height)
 	{
 		pos.x = -1;
-		while (++pos.x < var->map.width)
+		while (++pos.x < ft_strlen(var->map.map[(int)pos.y]))
 			draw_rectangle(var, pos.x, pos.y);
 	}
 	draw_rect(&var->minimap, (t_xy){var->map.pos.x * MMAP_SIZE, var->map.pos.y

@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:53:38 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/12/18 18:27:34 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/12/18 18:31:15 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,14 @@ void	parse_map(char *line, t_map_line **map_lines)
 
 void	free_map_line(t_map_line *map)
 {
+	t_map_line	*tmp;
+
 	while (map)
 	{
 		free(map->line);
-		free(map);
+		tmp = map;
 		map = map->next;
+		free(tmp);
 	}
 }
 
