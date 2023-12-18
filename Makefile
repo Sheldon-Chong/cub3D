@@ -11,7 +11,7 @@ SRCS		:=	main.c init.c parse.c check.c \
 				
 OBJS		:= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
-CC			:= gcc -Wall -Werror -Wextra
+CC			:= gcc -Wall -Werror -Wextra -g3
 
 FLAGS		:= -fsanitize=address
 MFLAGS 		:= -framework OpenGL -framework AppKit
@@ -54,7 +54,7 @@ $(NAME)	: $(OBJS)
 # "gcc -o 'file' " use as a naming feature / place the output result to 'file'
 $(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c
 	@mkdir -p $(OBJS_DIR)
-	@$(CC) $(INCLUDES) -c $< -o $@
+	$(CC) $(INCLUDES) -c $< -o $@
 
 # "echo -e" to allow backslash escapes \ 
 clean :

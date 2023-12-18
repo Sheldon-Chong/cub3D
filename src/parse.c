@@ -6,7 +6,7 @@
 /*   By: nwai-kea <nwai-kea@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/18 22:53:38 by nwai-kea          #+#    #+#             */
-/*   Updated: 2023/12/18 16:49:36 by nwai-kea         ###   ########.fr       */
+/*   Updated: 2023/12/18 18:27:34 by nwai-kea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	parse_color(char *line, t_var *var)
 	{
 		if (ft_isnum(char_rgb[i]) || ft_atoi(char_rgb[i]) < 0
 			|| ft_atoi(char_rgb[i]) > 255)
-			error_mes("Color Error!", var);
+			error_mes("Error: Color Error!", var);
 		test[i] = ft_atoi(char_rgb[i]);
 		i++;
 	}
