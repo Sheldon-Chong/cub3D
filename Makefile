@@ -13,7 +13,7 @@ OBJS		:= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
 CC			:= gcc -Wall -Werror -Wextra -g3
 
-FLAGS		:= -fsanitize=address
+# FLAGS		:= -fsanitize=address
 MFLAGS 		:= -framework OpenGL -framework AppKit
 
 # -L "folder" to looks for library in the folder
